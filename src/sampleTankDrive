@@ -1,0 +1,37 @@
+package org.usfirst.frc.team79.robot;
+
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.RobotDrive.MotorType;
+import edu.wpi.first.wpilibj.SampleRobot;
+import edu.wpi.first.wpilibj.Timer;
+
+public class Robot extends SampleRobot {
+	
+	// drive test code
+	// code for a tank drive system inheriting from simple robot
+	// created from new robot java project, iterative robot
+
+	RobotDrive myRobot;
+	Joystick joystick;
+	
+	public void robotInit() {
+		myRobot = new RobotDrive(2, 3, 0, 1);
+		
+		myRobot.setInvertedMotor(MotorType.kFrontLeft, true);
+		myRobot.setInvertedMotor(MotorType.kFrontRight, true);
+		myRobot.setInvertedMotor(MotorType.kRearLeft, true);
+		myRobot.setInvertedMotor(MotorType.kRearRight, true);
+		
+		joystick = new Joystick(0);
+	}
+	
+	public void operatorControl() {
+		myRobot.setSafetyEnabled(true);
+		
+		while(isOperatorControl() && isEnabled()) {
+			myRobot.arcadeDrive(joystick);
+			Timer.delay(.005);
+		}
+	}
+}
