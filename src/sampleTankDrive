@@ -30,7 +30,7 @@ public class Robot extends SampleRobot {
 		myRobot.setSafetyEnabled(true);
 		
 		while(isOperatorControl() && isEnabled()) {
-			myRobot.arcadeDrive(joystick);
+			myRobot.tankDrive(joystick.getX(), joystick.getY());
 			Timer.delay(.005);
 		}
 	}
