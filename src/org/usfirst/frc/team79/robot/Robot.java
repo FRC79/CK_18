@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends IterativeRobot {
 
+	static final double kP = 0.03;	// Proportional constant for gyro feedback loop
 	static final double GYRO_CONVERSION = 0.535714289; // Calculated experimentally
 	
 	Gyro gyro;
@@ -51,7 +52,10 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
     	// Maps 3-axis joystick to mecanum drive (X, Y, Rotation)
     	// Last parameter is for the gyro angle for field oriented driving (must supply updated angle for every call)
-    	robotDrive.mecanumDrive_Cartesian(moveStick.getX(), moveStick.getY(), moveStick.getRawAxis(3), 0);
+//    	robotDrive.mecanumDrive_Cartesian(moveStick.getX(), moveStick.getY(), moveStick.getRawAxis(3), 0);
+    	
+    	// Performs gyro-stabilization when translating to eliminate drift
+    	robotDrive.mecanumDrive_Cartesian(moveStick.getX(), moveStick.getY(), -getGyroAngle()*kP, 0);
 
     	// Outputs gyro value on SmartDashboard
     	SmartDashboard.putNumber("GYRO", getGyroAngle());
