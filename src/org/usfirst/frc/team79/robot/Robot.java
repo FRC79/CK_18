@@ -13,6 +13,8 @@ public class Robot extends IterativeRobot {
 	static final double kP = 0.03;	// Proportional constant for gyro feedback loop
 	static final double GYRO_CONVERSION = 0.535714289; // Calculated experimentally
 	
+	boolean userNowRotating, userWasRotating; // Gyro-stabilization states
+	
 	Gyro gyro;
 	
 	RobotDrive robotDrive;
@@ -45,11 +47,11 @@ public class Robot extends IterativeRobot {
     }
 
     public void teleopInit(){
+    	userNowRotating = false;
+    	userWasRotating = false;
+    	
     	gyro.reset();	// Reset heading to 0 degs
     }
-    
-    boolean userNowRotating = false;
-    boolean userWasRotating = false;
     
     public void teleopPeriodic() {
     	// Update current state variable (Is the user rotating?)
