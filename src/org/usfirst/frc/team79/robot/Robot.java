@@ -48,17 +48,37 @@ public class Robot extends IterativeRobot {
     	gyro.reset();	// Reset heading to 0 degs
     }
     
+    boolean userNowRotating = false;
+    boolean userWasRotating = false;
     
     public void teleopPeriodic() {
-    	// Maps 3-axis joystick to mecanum drive (X, Y, Rotation)
-    	// Last parameter is for the gyro angle for field oriented driving (must supply updated angle for every call)
-//    	robotDrive.mecanumDrive_Cartesian(moveStick.getX(), moveStick.getY(), moveStick.getRawAxis(3), 0);
+    	// Update current state variable (Is the user rotating?)
+    	userNowRotating = (Math.abs(moveStick.getRawAxis(3)) > 0.05);
     	
     	// Performs gyro-stabilization when translating to eliminate drift
-    	robotDrive.mecanumDrive_Cartesian(moveStick.getX(), moveStick.getY(), -getGyroAngle()*kP, 0);
+    	double rotVal = 0.0;
+    	if(userNowRotating){
+    		// Rotate at user input power
+    		rotVal = moveStick.getRawAxis(3);
+    	} else {
+    		if(userWasRotating){
+    			// Reset gyro heading to 0 (the new direction the robot is translating in)
+    			gyro.reset();
+    		} else {
+    			// Stabilize heading to 0
+    			rotVal = -getGyroAngle()*kP;
+    		}
+    	}
+    	
+    	// Maps 3-axis joystick to mecanum drive (X, Y, Rotation)
+    	// Last parameter is for the gyro angle for field oriented driving (must supply updated angle for every call)
+    	robotDrive.mecanumDrive_Cartesian(moveStick.getX(), moveStick.getY(), rotVal, 0);
 
     	// Outputs gyro value on SmartDashboard
     	SmartDashboard.putNumber("GYRO", getGyroAngle());
+    
+    	// Update previous state variable (Was the user just rotating?)
+    	userWasRotating = userNowRotating;
     }
     
 }
