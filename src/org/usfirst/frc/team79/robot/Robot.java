@@ -28,10 +28,10 @@ public class Robot extends IterativeRobot {
 		gyro = new Gyro(0);
 		gyro.initGyro();	// Run calibration (most likely 5 seconds halting)
 		
-    	int FL = 0;
-    	int FR = 1;
+    	int FL = 2;
+    	int FR = 0;
     	int BL = 3;
-    	int BR = 2;
+    	int BR = 1;
     	
     	robotDrive = new RobotDrive(FL, BL, FR, BR);
     	robotDrive.setInvertedMotor(MotorType.kFrontRight, true);
