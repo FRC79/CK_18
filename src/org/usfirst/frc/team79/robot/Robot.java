@@ -12,8 +12,11 @@ public class Robot extends IterativeRobot {
 
 	static final double kP = 0.03;	// Proportional constant for gyro feedback loop
 	static final double GYRO_CONVERSION = 0.535714289; // Calculated experimentally
+	static final double JOYSTICK_DEADBAND = 0.05;
+	static final double ANGLE_DELTA_TOLERANCE = 0.01;
 	
-	boolean userNowRotating, userWasRotating; // Gyro-stabilization states
+	boolean userNowRotating, userWasRotating, changeInTheta, stoppingRotation; // Gyro-stabilization states
+	double lastGyroVal;
 	
 	Gyro gyro;
 	
@@ -49,13 +52,17 @@ public class Robot extends IterativeRobot {
     public void teleopInit(){
     	userNowRotating = false;
     	userWasRotating = false;
+    	changeInTheta = false;
+    	stoppingRotation = false;
+    	lastGyroVal = 0.0;
     	
     	gyro.reset();	// Reset heading to 0 degs
     }
     
     public void teleopPeriodic() {
     	// Update current state variable (Is the user rotating?)
-    	userNowRotating = (Math.abs(moveStick.getRawAxis(3)) > 0.05);
+    	userNowRotating = (Math.abs(moveStick.getRawAxis(3)) > JOYSTICK_DEADBAND);
+    	changeInTheta = (Math.abs(getGyroAngle() - lastGyroVal) > ANGLE_DELTA_TOLERANCE);
     	
     	// Performs gyro-stabilization when translating to eliminate drift
     	double rotVal = 0.0;
@@ -64,10 +71,23 @@ public class Robot extends IterativeRobot {
     		rotVal = moveStick.getRawAxis(3);
     	} else {
     		if(userWasRotating){
-    			// Reset gyro heading to 0 (the new direction the robot is translating in)
-    			gyro.reset();
+    			// Begin to decelerate the angular rotation
+    			stoppingRotation = true;
+    		}
+    		
+    		// Continue to set rotation to 0 unless robot has finally stopped rotating
+    		if(stoppingRotation){
+    			if(!changeInTheta){
+    				// Robot has stopped rotating, so now reset the heading
+    				gyro.reset();
+    				gyro.reset();
+    				gyro.reset();
+    				gyro.reset();
+    				gyro.reset();
+    				stoppingRotation = false;
+    			}
     		} else {
-    			// Stabilize heading to 0
+    			// Robot should not be rotating, therefore perform auto-stabilization on the heading
     			rotVal = -getGyroAngle()*kP;
     		}
     	}
@@ -81,6 +101,7 @@ public class Robot extends IterativeRobot {
     
     	// Update previous state variable (Was the user just rotating?)
     	userWasRotating = userNowRotating;
+    	lastGyroVal = getGyroAngle();
     }
     
 }
