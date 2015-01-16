@@ -13,7 +13,7 @@ public class Robot extends IterativeRobot {
 	static final double kP = 0.03;	// Proportional constant for gyro feedback loop
 	static final double GYRO_CONVERSION = 0.535714289; // Calculated experimentally
 	static final double JOYSTICK_DEADBAND = 0.05;
-	static final double ANGLE_DELTA_TOLERANCE = 0.01;
+	static final double ANGLE_DELTA_TOLERANCE = 0.05;
 	
 	boolean userNowRotating, userWasRotating, changeInTheta, stoppingRotation; // Gyro-stabilization states
 	double lastGyroVal;
