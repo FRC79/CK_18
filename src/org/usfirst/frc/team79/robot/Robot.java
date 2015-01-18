@@ -21,7 +21,7 @@ public class Robot extends IterativeRobot {
 	Gyro gyro;
 	
 	RobotDrive robotDrive;
-	Joystick moveStick;
+	Joystick moveStick, rotStick;
 	
 	private double getGyroAngle(){
 		return gyro.getAngle() * GYRO_CONVERSION;
@@ -41,6 +41,7 @@ public class Robot extends IterativeRobot {
     	robotDrive.setInvertedMotor(MotorType.kRearRight, true);
     	
     	moveStick = new Joystick(0);
+    	rotStick = new Joystick(1);
     }
 	
 	public void autonomousInit(){
@@ -61,14 +62,14 @@ public class Robot extends IterativeRobot {
     
     public void teleopPeriodic() {
     	// Update current state variable (Is the user rotating?)
-    	userNowRotating = (Math.abs(moveStick.getRawAxis(3)) > JOYSTICK_DEADBAND);
+    	userNowRotating = (Math.abs(rotStick.getX()) > JOYSTICK_DEADBAND);
     	changeInTheta = (Math.abs(getGyroAngle() - lastGyroVal) > ANGLE_DELTA_TOLERANCE);
     	
     	// Performs gyro-stabilization when translating to eliminate drift
     	double rotVal = 0.0;
     	if(userNowRotating){
     		// Rotate at user input power
-    		rotVal = moveStick.getRawAxis(3);
+    		rotVal = rotStick.getX();
     	} else {
     		if(userWasRotating){
     			// Begin to decelerate the angular rotation
