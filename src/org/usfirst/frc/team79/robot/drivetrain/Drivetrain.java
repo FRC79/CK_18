@@ -1,9 +1,11 @@
-package krunch18.drivetrain;
+package org.usfirst.frc.team79.robot.drivetrain;
 
-import krunch18.RobotMap;
+import org.usfirst.frc.team79.robot.RobotMap;
+
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.RobotDrive.MotorType;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.interfaces.Accelerometer.Range;
 
@@ -27,6 +29,8 @@ public class Drivetrain extends Subsystem {
 				RobotMap.FR_WHEEL_PORT, 
 				RobotMap.BR_WHEEL_PORT
 		);
+		robotDrive.setInvertedMotor(MotorType.kFrontRight, true);
+		robotDrive.setInvertedMotor(MotorType.kRearRight, true);
 		
 		accel = new BuiltInAccelerometer(Range.k4G);
 		

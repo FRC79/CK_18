@@ -1,6 +1,7 @@
-package krunch18;
+package org.usfirst.frc.team79.robot;
 
-import krunch18.drivetrain.Drivetrain;
+import org.usfirst.frc.team79.robot.drivetrain.Drivetrain;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 /**

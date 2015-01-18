@@ -1,7 +1,8 @@
 
-package krunch18;
+package org.usfirst.frc.team79.robot;
 
-import krunch18.drivetrain.TeleopDrive;
+import org.usfirst.frc.team79.robot.drivetrain.TeleopDrive;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
