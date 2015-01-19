@@ -1,4 +1,4 @@
 CK_18
 =====
 
-This is the code repository for (Captain) Krunch 18. For resources and documentation, visit the wiki on the right-hand sidebar.
+This is a branch containing controls and commands for a four wheeled drive system. All it does is create 3 basic commands, and execute them during autonomous driving. 
