@@ -1,34 +1,13 @@
+package robot.commands;
 
-package robot;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 
-import robot.commands.AutonomousCommand;
-import robot.driveTrain.Teleop;
-import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.Scheduler;
-
-public class Robot extends IterativeRobot {
+public class AutonomousCommand extends CommandGroup {
 	
-	Command autonomousCommand;
-    
-    public void robotInit() {
-    	CommandBase.init();
-    	autonomousCommand = new AutonomousCommand();
-    }   
-    
-    public void teleopInit() {
-    	(new Teleop()).start();
-    }
-    
-    public void teleopPeriodic() {
-    	Scheduler.getInstance().run();
-    }
-    
-    public void autonomousInit() {
-    	autonomousCommand.start();
-    }
-    
-    public void autonomousPeriodic() {
-    	Scheduler.getInstance().run();
-    }
+	public AutonomousCommand() {
+		addSequential(new DriveForward());
+		addSequential(new Spin());
+		addSequential(new Stop());
+	}
+
 }
