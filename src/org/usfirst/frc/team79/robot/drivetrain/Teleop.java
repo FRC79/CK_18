@@ -1,25 +1,21 @@
-package robot.commands;
+package org.usfirst.frc.team79.robot.drivetrain;
 
-import robot.CommandBase;
+import org.usfirst.frc.team79.robot.CommandBase;
 
-public class DriveForward extends CommandBase {
+public class Teleop extends CommandBase {
 	
-	public DriveForward(double duration) {
-		requires(drive);
-		setTimeout(duration);
-	}
-	
-	public DriveForward() {
+	public Teleop() {
 		requires(drive);
 	}
+
 	@Override
 	protected void initialize() {
-		
+
 	}
 
 	@Override
 	protected void execute() {
-		drive.move(0.5, 0.5);
+		drive.arcadeDrive(oi.joystick);
 	}
 
 	@Override
@@ -29,12 +25,13 @@ public class DriveForward extends CommandBase {
 
 	@Override
 	protected void end() {
-		
+			
 	}
 
 	@Override
 	protected void interrupted() {
 		
 	}
+	
 	
 }

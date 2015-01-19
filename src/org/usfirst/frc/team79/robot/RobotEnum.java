@@ -1,4 +1,4 @@
-package robot; 
+package org.usfirst.frc.team79.robot; 
 
 public enum RobotEnum {
 	

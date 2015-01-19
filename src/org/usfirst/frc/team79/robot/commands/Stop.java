@@ -1,6 +1,6 @@
-package robot.commands;
+package org.usfirst.frc.team79.robot.commands;
 
-import robot.CommandBase;
+import org.usfirst.frc.team79.robot.CommandBase;
 
 public class Stop extends CommandBase {
 	

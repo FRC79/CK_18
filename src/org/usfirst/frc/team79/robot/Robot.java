@@ -1,8 +1,9 @@
 
-package robot; 
+package org.usfirst.frc.team79.robot; 
 
-import robot.commands.AutonomousCommand;
-import robot.driveTrain.Teleop;
+import org.usfirst.frc.team79.robot.commands.AutonomousCommand;
+import org.usfirst.frc.team79.robot.drivetrain.Teleop;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
