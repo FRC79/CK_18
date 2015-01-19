@@ -1,4 +1,4 @@
-package robot;
+package robot; 
 
 public enum RobotEnum {
 	
