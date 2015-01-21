@@ -9,9 +9,12 @@ import edu.wpi.first.wpilibj.Joystick;
 public class OI {
     public Joystick moveStick, rotStick;
     
+    public static int MODE_DUAL_JOYSTICKS = 0;
+    public static int MODE_SINGLE_JOYSTICK = 0;
+    
     public OI(){
     	moveStick = new Joystick(RobotMap.MOVE_STICK_ID);
-    	rotStick = new Joystick(RobotMap.ROT_STICK_ID);
+    	// Init rot stick in teleop
     }
 }
 

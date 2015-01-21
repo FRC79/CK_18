@@ -1,6 +1,10 @@
 package org.usfirst.frc.team79.robot.drivetrain;
 
 import org.usfirst.frc.team79.robot.CommandBase;
+import org.usfirst.frc.team79.robot.OI;
+import org.usfirst.frc.team79.robot.RobotMap;
+
+import edu.wpi.first.wpilibj.Joystick;
 
 /**
  *
@@ -12,9 +16,22 @@ public class TeleopDrive extends CommandBase {
 	
 	boolean userNowRotating, userWasRotating, changeInTheta, stoppingRotation;
 	double lastGyroVal;
+	boolean twoSticks;
 	
-    public TeleopDrive() {
+    public TeleopDrive(int joystickMode) {
     	requires(drivetrain);
+
+    	twoSticks = (joystickMode == OI.MODE_DUAL_JOYSTICKS);
+    	
+    	oi.rotStick = (twoSticks) ? new Joystick(RobotMap.ROT_STICK_ID) : null;
+    }
+    
+    private double getJoystickRot(){
+    	if(twoSticks){
+    		return oi.rotStick.getX();
+    	} else {
+    		return oi.moveStick.getRawAxis(3);
+    	}
     }
 
     // Called just before this Command runs the first time
@@ -31,14 +48,14 @@ public class TeleopDrive extends CommandBase {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	// Update current state variable (Is the user rotating?)
-    	userNowRotating = (Math.abs(oi.rotStick.getX()) > JOYSTICK_DEADBAND);
+    	userNowRotating = (Math.abs(getJoystickRot()) > JOYSTICK_DEADBAND);
     	changeInTheta = (Math.abs(drivetrain.getGyro() - lastGyroVal) > ANGLE_DELTA_TOLERANCE);
     	
     	// Performs gyro-stabilization when translating to eliminate drift
     	double rotVal = 0.0;
     	if(userNowRotating){
     		// Rotate at user input power
-    		rotVal = oi.rotStick.getX();
+    		rotVal = getJoystickRot();
     	} else {
     		if(userWasRotating){
     			// Begin to decelerate the angular rotation
