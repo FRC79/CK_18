@@ -11,8 +11,8 @@ public class RobotMap {
 	
 	// SPEED CONTROLLERS
 	public static int FL_WHEEL_PORT = 2;
-	public static int BL_WHEEL_PORT = 3;
-	public static int FR_WHEEL_PORT = 0;
+	public static int BL_WHEEL_PORT = 0;
+	public static int FR_WHEEL_PORT = 3;
 	public static int BR_WHEEL_PORT = 1;
 	
 	// ANALOG INPUTS

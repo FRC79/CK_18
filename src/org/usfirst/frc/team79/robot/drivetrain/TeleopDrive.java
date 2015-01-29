@@ -16,6 +16,10 @@ public class TeleopDrive extends CommandBase {
     public TeleopDrive() {
     	requires(drivetrain);
     }
+    
+    private double deadband(double joystickval){
+    	return (Math.abs(joystickval) > 0.05) ? joystickval : 0.0;
+    }
 
     // Called just before this Command runs the first time
     protected void initialize() {
@@ -31,14 +35,14 @@ public class TeleopDrive extends CommandBase {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	// Update current state variable (Is the user rotating?)
-    	userNowRotating = (Math.abs(oi.rotStick.getX()) > JOYSTICK_DEADBAND);
+    	userNowRotating = (Math.abs(deadband(oi.moveStick.getRawAxis(3))) > JOYSTICK_DEADBAND);
     	changeInTheta = (Math.abs(drivetrain.getGyro() - lastGyroVal) > ANGLE_DELTA_TOLERANCE);
     	
     	// Performs gyro-stabilization when translating to eliminate drift
     	double rotVal = 0.0;
     	if(userNowRotating){
     		// Rotate at user input power
-    		rotVal = oi.rotStick.getX();
+    		rotVal = deadband(oi.moveStick.getRawAxis(3));
     	} else {
     		if(userWasRotating){
     			// Begin to decelerate the angular rotation
@@ -63,7 +67,7 @@ public class TeleopDrive extends CommandBase {
     	}
     	
     	// Maps 3-axis joystick to mecanum drive (X, Y, Rotation)
-    	drivetrain.driveXY(oi.moveStick.getX(), oi.moveStick.getY(), rotVal);
+    	drivetrain.driveXY(deadband(oi.moveStick.getX()), deadband(oi.moveStick.getY()), rotVal);
 
     	// Update previous state variable (Was the user just rotating?)
     	userWasRotating = userNowRotating;
