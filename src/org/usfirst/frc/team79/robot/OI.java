@@ -10,7 +10,7 @@ public class OI {
     public Joystick moveStick, rotStick;
     
     public static int MODE_DUAL_JOYSTICKS = 0;
-    public static int MODE_SINGLE_JOYSTICK = 0;
+    public static int MODE_SINGLE_JOYSTICK = 1;
     
     public OI(){
     	moveStick = new Joystick(RobotMap.MOVE_STICK_ID);

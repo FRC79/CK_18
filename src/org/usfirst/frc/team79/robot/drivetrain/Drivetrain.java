@@ -14,8 +14,9 @@ import edu.wpi.first.wpilibj.interfaces.Accelerometer.Range;
  */
 public class Drivetrain extends Subsystem {
     
-	public static final double kP = 0.03;	// Proportional constant for gyro feedback loop
+	public static final double kP = 0.01;	// Proportional constant for gyro feedback loop
 	public static final double GYRO_CONVERSION = 0.535714289; // Calculated experimentally
+	public static final double POWER_PERCENTAGE = 0.75;
 	
 	public RobotDrive robotDrive;
 	public Gyro gyro;
@@ -47,7 +48,7 @@ public class Drivetrain extends Subsystem {
 	
 	// Cartesian Mecanum with rotation
 	public void driveXY(double powerX, double powerY, double powerRot){
-		robotDrive.mecanumDrive_Cartesian(powerX, powerY, powerRot, 0);
+		robotDrive.mecanumDrive_Cartesian(powerX * POWER_PERCENTAGE, powerY * POWER_PERCENTAGE, powerRot * POWER_PERCENTAGE, 0);
 	}
 	
 	// Cartesian mecanum with auto-stabilization
