@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.interfaces.Accelerometer.Range;
  */
 public class Drivetrain extends Subsystem {
     
-	public static final double kP = 0.01;	// Proportional constant for gyro feedback loop
+	public static final double kP = 0.025;	// Proportional constant for gyro feedback loop
 	public static final double GYRO_CONVERSION = 0.535714289; // Calculated experimentally
 	public static final double POWER_PERCENTAGE = 0.75;
 	
