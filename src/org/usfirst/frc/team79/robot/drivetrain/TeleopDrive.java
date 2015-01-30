@@ -37,7 +37,7 @@ public class TeleopDrive extends CommandBase {
     private double deadband(double joystickval){
     	return (Math.abs(joystickval) > 0.05) ? joystickval : 0.0;
     }
-
+    
     // Called just before this Command runs the first time
     protected void initialize() {
     	userNowRotating = false;
