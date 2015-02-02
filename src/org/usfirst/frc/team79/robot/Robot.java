@@ -1,6 +1,8 @@
 
 package org.usfirst.frc.team79.robot;
 
+import org.usfirst.frc.team79.robot.camera.VisionService;
+import org.usfirst.frc.team79.robot.drivetrain.Demo_PID_Tote_Align;
 import org.usfirst.frc.team79.robot.drivetrain.TeleopDrive;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -21,6 +23,9 @@ public class Robot extends IterativeRobot {
 	SendableChooser joystickMode;
 	
     public void robotInit() {
+    	// Load the native library.
+    	System.load(VisionService.NATIVE_LIBRARY_PATH);
+    	
     	// Load settings and init subsystems
 //    	RobotMap.loadCSVSettings();
     	CommandBase.init();
@@ -37,6 +42,7 @@ public class Robot extends IterativeRobot {
 	}
 
     public void autonomousInit() {
+    	(new Demo_PID_Tote_Align()).start(); // Starts Tote tracking PID
     }
 
     public void autonomousPeriodic() {

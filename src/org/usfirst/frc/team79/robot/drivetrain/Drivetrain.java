@@ -42,18 +42,22 @@ public class Drivetrain extends Subsystem {
 	
 	
 	// Cartesian Mecanum
-	public void driveXY(double powerX, double powerY){
-		driveXY(powerX, powerY, 0);
+	public void moveXY(double powerX, double powerY){
+		moveXY(powerX, powerY, 0);
 	}
 	
 	// Cartesian Mecanum with rotation
-	public void driveXY(double powerX, double powerY, double powerRot){
+	public void moveXY(double powerX, double powerY, double powerRot){
 		robotDrive.mecanumDrive_Cartesian(powerX * POWER_PERCENTAGE, powerY * POWER_PERCENTAGE, powerRot * POWER_PERCENTAGE, 0);
 	}
 	
 	// Cartesian mecanum with auto-stabilization
-	public void driveXY_AS(double powerX, double powerY){
-		driveXY(powerX, powerY, -getGyro()*kP);
+	public void moveXY_AS(double powerX, double powerY){
+		moveXY(powerX, powerY, -getGyro()*kP);
+	}
+	
+	public void stop(){
+		moveXY(0,0);
 	}
 	
 	
@@ -67,6 +71,7 @@ public class Drivetrain extends Subsystem {
 	}
 	
     public void initDefaultCommand() {
+    	setDefaultCommand(new StopDriveMotors(true));
     }
 }
 

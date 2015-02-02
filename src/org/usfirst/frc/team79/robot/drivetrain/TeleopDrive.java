@@ -84,7 +84,7 @@ public class TeleopDrive extends CommandBase {
     	}
     	
     	// Maps 3-axis joystick to mecanum drive (X, Y, Rotation)
-    	drivetrain.driveXY(deadband(oi.moveStick.getX()), deadband(oi.moveStick.getY()), rotVal);
+    	drivetrain.moveXY(deadband(oi.moveStick.getX()), deadband(oi.moveStick.getY()), rotVal);
 
     	// Update previous state variable (Was the user just rotating?)
     	userWasRotating = userNowRotating;
