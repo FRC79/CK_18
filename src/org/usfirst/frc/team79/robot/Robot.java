@@ -1,23 +1,21 @@
 
-package org.usfirst.frc.team79.robot; 
+package org.usfirst.frc.team79.robot;
 
-import robot.commands.AutonomousCommand;
-import robot.driveTrain.Teleop;
+import org.usfirst.frc.team79.robot.driveTrain.TeleopArcade;
+import org.usfirst.frc.team79.subsystems.ManualController;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 
 public class Robot extends IterativeRobot {
-	
-	Command autonomousCommand;
     
     public void robotInit() {
     	CommandBase.init();
-    	autonomousCommand = new AutonomousCommand();
     }   
     
     public void teleopInit() {
-    	(new Teleop()).start();
+    	(new TeleopArcade()).start();
+    	(new ManualController()).start();
     }
     
     public void teleopPeriodic() {
@@ -25,7 +23,7 @@ public class Robot extends IterativeRobot {
     }
     
     public void autonomousInit() {
-    	autonomousCommand.start();
+    	
     }
     
     public void autonomousPeriodic() {
