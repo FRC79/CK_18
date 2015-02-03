@@ -1,21 +1,16 @@
 package org.usfirst.frc.team79.robot;
 
-import robot.driveTrain.DriveTrain;
- 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.Joystick;
 
-public abstract class CommandBase extends Command {
-	
-	public static OI oi;
-	public static DriveTrain drive;
 
-	protected static void init() {
-		oi = new OI();
-		drive = new DriveTrain();
-	}
+public class OI {
 	
-	public CommandBase() {
-		super();
+	public Joystick moveStick;
+    	public Joystick liftStick;
+	
+	public OI() {
+		moveStick = new Joystick(RobotEnum.JOYSTICK_PORT.PORT);
+    	liftStick = new Joystick(RobotEnum.MANIPULATOR_STICK_ID.PORT);
 	}
 }
 
