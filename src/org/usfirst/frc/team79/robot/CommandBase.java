@@ -1,24 +1,35 @@
 package org.usfirst.frc.team79.robot;
 
-import org.usfirst.frc.team79.robot.driveTrain.DriveTrain;
-import org.usfirst.frc.team79.subsystems.ToteArm;
+import org.usfirst.frc.team79.robot.drivetrain.Drivetrain;
+import org.usfirst.frc.team79.robot.totelift.ToteLifter;
 
 import edu.wpi.first.wpilibj.command.Command;
 
+/**
+ * The base for all commands. All atomic commands should subclass CommandBase.
+ * CommandBase stores creates and stores each control system. To access a
+ * subsystem elsewhere in your code in your code use CommandBase.exampleSubsystem
+ */
+
 public abstract class CommandBase extends Command {
-	
+
 	public static OI oi;
-	public static DriveTrain drive;
-	public static ToteArm toteManipulator;
+	public static Drivetrain drivetrain;
+	public static ToteLifter toteManipulator;
+	
+	public static void init(){
 
-	protected static void init() {
 		oi = new OI();
-		drive = new DriveTrain();
-		toteManipulator = new ToteArm();
+		drivetrain = new Drivetrain();
+		toteManipulator = new ToteLifter();
+		
 	}
 	
-	public CommandBase() {
-		super();
-	}
-}
+	public CommandBase(String name) {
+        super(name);
+    }
 
+    public CommandBase() {
+        super();
+    }
+}
