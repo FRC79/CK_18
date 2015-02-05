@@ -1,30 +1,72 @@
-package robot.driveTrain;
+package org.usfirst.frc.team79.robot.drivetrain;
 
-import robot.RobotEnum; 
+import org.usfirst.frc.team79.robot.RobotMap;
 
-import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.BuiltInAccelerometer;
+import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.RobotDrive.MotorType;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.interfaces.Accelerometer.Range;
 
-public class DriveTrain extends Subsystem {
+/**
+ *
+ */
+public class Drivetrain extends Subsystem {
+    
+	public static final double kP = 0.025;	// Proportional constant for gyro feedback loop
+	public static final double GYRO_CONVERSION = 0.535714289; // Calculated experimentally
+	public static final double POWER_PERCENTAGE = 0.75;
 	
-	RobotDrive robotDrive;
+	public RobotDrive robotDrive;
+	public Gyro gyro;
+	public BuiltInAccelerometer accel;
 	
-	public DriveTrain() {
-		robotDrive = new RobotDrive(RobotEnum.FRONT_LEFT.PORT, RobotEnum.BACK_LEFT.PORT, RobotEnum.FRONT_RIGHT.PORT, RobotEnum.BACK_RIGHT.PORT);
+	public Drivetrain(){
+		// Init components
+		robotDrive = new RobotDrive(
+				RobotMap.FL_WHEEL_PORT, 
+				RobotMap.BL_WHEEL_PORT, 
+				RobotMap.FR_WHEEL_PORT, 
+				RobotMap.BR_WHEEL_PORT
+		);
+		robotDrive.setInvertedMotor(MotorType.kFrontRight, true);
+		robotDrive.setInvertedMotor(MotorType.kRearRight, true);
+		
+		accel = new BuiltInAccelerometer(Range.k4G);
+		
+		gyro = new Gyro(RobotMap.GYRO_PORT);
+		gyro.initGyro(); // Gyro calibration mode (keep robot still, takes a few seconds)
 	}
 	
-	public void arcadeDrive(Joystick joystick) {
-		robotDrive.arcadeDrive(joystick);
+	
+	
+	// Cartesian Mecanum
+	public void driveXY(double powerX, double powerY){
+		driveXY(powerX, powerY, 0);
 	}
 	
-	public void move(double leftOutput, double rightOutput) {
-		robotDrive.setLeftRightMotorOutputs(leftOutput, rightOutput);
+	// Cartesian Mecanum with rotation
+	public void driveXY(double powerX, double powerY, double powerRot){
+		robotDrive.mecanumDrive_Cartesian(powerX * POWER_PERCENTAGE, powerY * POWER_PERCENTAGE, powerRot * POWER_PERCENTAGE, 0);
 	}
 	
-	@Override
-	protected void initDefaultCommand() {
-		setDefaultCommand(null);
+	// Cartesian mecanum with auto-stabilization
+	public void driveXY_AS(double powerX, double powerY){
+		driveXY(powerX, powerY, -getGyro()*kP);
 	}
 	
+	
+	
+	public double getGyro() {
+		return gyro.getAngle() * GYRO_CONVERSION;
+	}
+	
+	public void resetGyro(){
+		gyro.reset();
+	}
+	
+    public void initDefaultCommand() {
+    }
 }
+
