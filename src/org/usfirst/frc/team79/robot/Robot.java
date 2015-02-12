@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team79.robot;
 
+import org.usfirst.frc.team79.robot.commands.ConnorsController;
 import org.usfirst.frc.team79.robot.commands.JeremysController;
 import org.usfirst.frc.team79.robot.drivetrain.TeleopDrive;
 
@@ -18,15 +19,17 @@ public class Robot extends IterativeRobot {
 
     	CommandBase.init();
     	
+    	
     	controllerMode = new SendableChooser();
     	controllerMode.addDefault("Connors Controller", 1);
-    	controllerMode.addObject("Jeremys Controller", 2);
+    	controllerMode.addObject("Jeremys Controller", 0);
     	SmartDashboard.putData("CONTROLLER MODE", controllerMode);
 
     	joystickMode = new SendableChooser();
     	joystickMode.addDefault("Single Joystick", OI.MODE_SINGLE_JOYSTICK);
     	joystickMode.addObject("Dual Joysticks", OI.MODE_DUAL_JOYSTICKS);
     	SmartDashboard.putData("JOYSTICK MODE", joystickMode);
+    	
     }
 	
 	public void disabledPeriodic() {
@@ -41,6 +44,7 @@ public class Robot extends IterativeRobot {
     }
 
     public void teleopInit() {
+    	(new ConnorsController()).start();
     	
     	if((int)controllerMode.getSelected() == 1) {
         	(new ConnorsController()).start();
