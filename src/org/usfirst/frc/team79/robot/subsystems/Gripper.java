@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Gripper extends Subsystem {
 	
-	DigitalInput GRIPPER_CLOSE, GRIPPER_OPEN, ACTUATOR_TOP, ACTUATOR_BOTTOM;
+	DigitalInput gripperClosed, gripperOpen, actuatorTopped, actuatorBottomed;
 	
 	static Victor gripper;
 	static Victor mover;
@@ -18,19 +18,19 @@ public class Gripper extends Subsystem {
 		gripper = new Victor(RobotMap.GRIPPER_MOTOR);
 		mover = new Victor(RobotMap.GRIPPER_ARM_MOTOR);
 		
-		GRIPPER_CLOSE = new DigitalInput(RobotMap.GRIP_CLOSE_LIMIT_ID);
-		GRIPPER_OPEN = new DigitalInput(RobotMap.GRIP_OPEN_LIMIT_ID);
+		gripperClosed = new DigitalInput(RobotMap.GRIP_CLOSE_LIMIT_ID);
+		gripperOpen = new DigitalInput(RobotMap.GRIP_OPEN_LIMIT_ID);
 		
-		ACTUATOR_TOP = new DigitalInput(RobotMap.ACTUATOR_TOP_ID);
-		ACTUATOR_BOTTOM = new DigitalInput(RobotMap.ACTUAT0R_BOTTOM_ID);
+		actuatorTopped = new DigitalInput(RobotMap.ACTUATOR_TOP_ID);
+		actuatorBottomed = new DigitalInput(RobotMap.ACTUAT0R_BOTTOM_ID);
 	}
 	
 	public void grip(double value) {
-		if(GRIPPER_OPEN.get() && value > 0) {
+		if(gripperOpen.get() && value > 0) {
 			value = 0;
 		}
 		
-		if(GRIPPER_CLOSE.get() && value < 0) {
+		if(gripperClosed.get() && value < 0) {
 			value = 0;
 		}
 		
@@ -38,11 +38,11 @@ public class Gripper extends Subsystem {
 	}
 	
 	public void armPosition(double value) {
-		if(ACTUATOR_TOP.get() && value > 0) {
+		if(actuatorTopped.get() && value > 0) {
 			value = 0;
 		}
 		
-		if(ACTUATOR_BOTTOM.get() && value < 0) {
+		if(actuatorBottomed.get() && value < 0) {
 			value = 0;
 		}
 		
