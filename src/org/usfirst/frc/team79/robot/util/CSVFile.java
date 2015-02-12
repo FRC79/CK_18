@@ -1,6 +1,7 @@
 package org.usfirst.frc.team79.robot.util;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.HashMap;
@@ -78,6 +79,8 @@ public class CSVFile {
 			}
 
 			fr.close();
+		} catch (FileNotFoundException fe) {
+			save();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
