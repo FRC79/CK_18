@@ -13,7 +13,7 @@ public class OI {
     
     public OI(){
     	moveStick = new Joystick(RobotMap.MOVE_STICK_ID);
-    	controlPad = new Joystick(RobotMap.MANIPULATOR_STICK_ID);
+    	controlPad = new Joystick(RobotMap.CONTROL_STICK_ID);
 
     	gripperArmDown = new JoystickButton(controlPad, RobotMap.GRIPPER_ARM_DOWN);
     	gripperArmUp = new JoystickButton(controlPad, RobotMap.GRIPPER_ARM_UP);
