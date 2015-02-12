@@ -25,10 +25,10 @@ public class Drivetrain extends Subsystem {
 	public Drivetrain(){
 		// Init components
 		robotDrive = new RobotDrive(
-				RobotMap.FL_WHEEL_PORT, 
-				RobotMap.BL_WHEEL_PORT, 
-				RobotMap.FR_WHEEL_PORT, 
-				RobotMap.BR_WHEEL_PORT
+				RobotMap.FL_WHEEL_MOTOR_PORT, 
+				RobotMap.BL_WHEEL_MOTOR_PORT, 
+				RobotMap.FR_WHEEL_MOTOR_PORT, 
+				RobotMap.BR_WHEEL_MOTOR_PORT
 		);
 		robotDrive.setInvertedMotor(MotorType.kFrontRight, true);
 		robotDrive.setInvertedMotor(MotorType.kRearRight, true);

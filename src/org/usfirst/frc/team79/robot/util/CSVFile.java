@@ -4,30 +4,30 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.TreeMap;
 
 public class CSVFile {
 
 	static final String s_lineSeparator = System.getProperty("line.separator");
 
-	HashMap<String, Object> items;
+	TreeMap<String, Object> items;
 	String filename;
 
 	public CSVFile(String filename) {
 		// Init data structure
-		items = new HashMap<String, Object>();
+		items = new TreeMap<String, Object>();
 		this.filename = filename;
 
-		// Load items into hashmap
+		// Load items into treemap
 		load();
 	}
 
 	public void load() {
 		try {
-			// Load CSV file contents to hashmap
+			// Load CSV file contents to treemap
 			FileReader fr = new FileReader(filename);
 			BufferedReader br = new BufferedReader(fr);
 			String buffer = "";

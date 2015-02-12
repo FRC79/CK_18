@@ -11,18 +11,33 @@ import org.usfirst.frc.team79.robot.util.CSVFile;
  */
 public class RobotMap {
 	
-	public static CSVFile CALIB_CSV;
-	
 	// Ports and IDs for individual modules
 	
 	// SPEED CONTROLLERS
-	public static int FL_WHEEL_PORT = 2;
-	public static int BL_WHEEL_PORT = 0;
-	public static int FR_WHEEL_PORT = 3;
-	public static int BR_WHEEL_PORT = 1;
+	public static int FL_WHEEL_MOTOR_PORT = 2;
+	public static int BL_WHEEL_MOTOR_PORT = 0;
+	public static int FR_WHEEL_MOTOR_PORT = 3;
+	public static int BR_WHEEL_MOTOR_PORT = 1;
+	
+	public static int TOTE_LIFT_MOTOR_PORT = 4;
+	
+	public static int CONTAINER_GRIPPER_MOTOR_PORT = 6;
+	public static int CONTAINER_ARM_MOTOR_PORT = 5;
 	
 	// ANALOG INPUTS
 	public static int GYRO_PORT = 0;
+	public static int SONAR_PORT = 1;
+	public static int TOTE_LIFT_POT_PORT = 2;
+	
+	// DIGITAL INPUTS
+	public static int TOTE_LIFT_TOP_SWITCH_PORT = 3;
+	public static int TOTE_LIFT_BOTTOM_SWITCH_PORT = 2;
+	public static int TOTE_CAPTURED_SWITCH_PORT = 4;
+	
+	public static int CONTAINER_GRIPPER_OPEN_SWITCH_PORT = 5;
+	public static int CONTAINER_GRIPPER_CLOSE_SWITCH_PORT = 6;
+	public static int CONATINER_ARM_TOP_SWITCH_PORT = 1;
+	public static int CONTAINER_ARM_BOTTOM_SWITCH_PORT = 0;
 	
 	// JOYSTICKS
 	public static int MOVE_STICK_ID = 0;
