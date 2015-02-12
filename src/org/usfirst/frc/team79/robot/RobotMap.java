@@ -1,6 +1,7 @@
 package org.usfirst.frc.team79.robot;
 
-import org.usfirst.frc.team79.robot.util.CSVReader;
+import org.usfirst.frc.team79.robot.util.CSVFile;
+
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -9,6 +10,8 @@ import org.usfirst.frc.team79.robot.util.CSVReader;
  * floating around.
  */
 public class RobotMap {
+	
+	public static CSVFile CALIB_CSV;
 	
 	// Ports and IDs for individual modules
 	
@@ -26,7 +29,6 @@ public class RobotMap {
 	public static int ROT_STICK_ID = 1;
 	
 	public static void init(){
-		
 	}
 	
 	// Load configuration settings from CSVs
