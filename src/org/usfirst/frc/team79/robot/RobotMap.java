@@ -1,4 +1,7 @@
 package org.usfirst.frc.team79.robot;
+
+import org.usfirst.frc.team79.robot.util.CSVReader;
+
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -22,6 +25,9 @@ public class RobotMap {
 	public static int MOVE_STICK_ID = 0;
 	public static int ROT_STICK_ID = 1;
 	
+	public static void init(){
+		
+	}
 	
 	// Load configuration settings from CSVs
 	public static void loadCSVSettings(){
