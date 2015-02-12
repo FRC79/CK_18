@@ -4,21 +4,21 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.TreeMap;
 
 public class CSVFile {
 
 	static final String s_lineSeparator = System.getProperty("line.separator");
 
-	HashMap<String, Object> items;
+	TreeMap<String, Object> items;
 	String filename;
 
 	public CSVFile(String filename) {
 		// Init data structure
-		items = new HashMap<String, Object>();
+		items = new TreeMap<String, Object>();
 		this.filename = filename;
 
 		// Load items into hashmap
