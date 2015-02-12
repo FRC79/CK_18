@@ -1,7 +1,7 @@
 
 package org.usfirst.frc.team79.robot;
 
-import org.usfirst.frc.team79.robot.commands.ConnorsController;
+import org.usfirst.frc.team79.robot.commands.JeremysController;
 import org.usfirst.frc.team79.robot.drivetrain.TeleopDrive;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -12,11 +12,16 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends IterativeRobot {
 	
-	SendableChooser joystickMode;
+	SendableChooser joystickMode, controllerMode;
 	
     public void robotInit() {
 
     	CommandBase.init();
+    	
+    	controllerMode = new SendableChooser();
+    	controllerMode.addDefault("Connors Controller", 1);
+    	controllerMode.addObject("Jeremys Controller", 2);
+    	SmartDashboard.putData("CONTROLLER MODE", controllerMode);
 
     	joystickMode = new SendableChooser();
     	joystickMode.addDefault("Single Joystick", OI.MODE_SINGLE_JOYSTICK);
@@ -36,8 +41,14 @@ public class Robot extends IterativeRobot {
     }
 
     public void teleopInit() {
+    	
+    	if((int)controllerMode.getSelected() == 1) {
+        	(new ConnorsController()).start();
+    	} else {
+    		(new JeremysController()).start();
+    	}
+    	
     	(new TeleopDrive((int)joystickMode.getSelected())).start();
-    	(new ConnorsController()).start();
     }
 
     public void disabledInit(){
