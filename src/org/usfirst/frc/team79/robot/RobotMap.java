@@ -25,10 +25,13 @@ public class RobotMap {
 	// ANALOG INPUTS
 	public static int GYRO_PORT = 0;
 	
+	// POTENTIOMETER
+	public static int POTENTIOMETER = 2;
+	
 	// JOYSTICKS
 	public static int MOVE_STICK_ID = 0;
 	public static int ROT_STICK_ID = 1;
-	public static int MANIPULATOR_STICK_ID;
+	public static int CONTROL_STICK_ID = 2;
 	
 	//Gamepad RawAxis
 	public static int LIFT_RAW_VALUE = 3;
