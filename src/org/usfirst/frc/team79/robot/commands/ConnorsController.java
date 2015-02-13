@@ -18,16 +18,38 @@ public class ConnorsController extends CommandBase {
 	@Override
 	protected void execute() {
 		
-		if(oi.toteLiftDown.get()) {
-			totelifter.move(-1.0);
-		} else if(oi.toteLiftUp.get()){
-			totelifter.move(1.0);
+		// Tote lifter mechanism
+		
+		if(Math.abs(oi.controlPad.getRawAxis(RobotMap.LIFT_RAW_VALUE)) > 0.05) {
+			totelifter.move(oi.controlPad.getRawAxis(RobotMap.LIFT_RAW_VALUE));
 		} else {
-			totelifter.move(oi.moveStick.getRawAxis(RobotMap.LIFT_RAW_VALUE));
+			totelifter.move(0.0);
 		}
 		
-		binlifter.armPosition(oi.moveStick.getRawAxis(RobotMap.GRIPPER_ARM_RAW_VALUE));
-		binlifter.grip(oi.moveStick.getRawAxis(RobotMap.GRIPPER_RAW_VALUE));
+		if(oi.controlPad.getRawButton(3)) {
+			totelifter.move(-1.0);
+		} else if(oi.controlPad.getRawButton(2)){
+			totelifter.move(1.0);
+		} else {
+			totelifter.move(0);
+		}
+		
+		// Positioning of linear actuator
+		
+		if(Math.abs(oi.controlPad.getRawAxis(RobotMap.GRIPPER_ARM_RAW_VALUE)) > 0.05) {
+			binlifter.armPosition(oi.controlPad.getRawAxis(RobotMap.GRIPPER_ARM_RAW_VALUE));
+		} else {
+			binlifter.armPosition(0.0);
+		}
+		
+		// Positioning of the gripper 
+		
+		if(Math.abs(oi.controlPad.getRawAxis(RobotMap.GRIPPER_RAW_VALUE)) > 0.05) {
+			binlifter.grip(oi.controlPad.getRawAxis(RobotMap.GRIPPER_RAW_VALUE));
+		} else {
+			binlifter.grip(0.0);
+		}
+
 		
 	}
 
