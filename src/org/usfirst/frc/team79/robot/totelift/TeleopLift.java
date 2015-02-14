@@ -25,7 +25,11 @@ public class TeleopLift extends CommandBase {
 		
 		toteLift.setMotor(Math.pow(deadband(oi.manipGamepad.getRawAxis(3)), 3));
 		
-		if(toteLift.atBottom() || toteLift.atTop()){
+		if(toteLift.atBottom() && deadband(oi.manipGamepad.getRawAxis(3)) < 0){
+			toteLift.setMotor(0);
+		}
+		
+		if(toteLift.atTop() && deadband(oi.manipGamepad.getRawAxis(3)) > 0){
 			toteLift.setMotor(0);
 		}
 	}

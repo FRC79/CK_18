@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team79.robot;
 
+import org.usfirst.frc.team79.robot.containerarm.TeleopContainerArm;
 import org.usfirst.frc.team79.robot.drivetrain.TeleopDrive;
 import org.usfirst.frc.team79.robot.totelift.TeleopLift;
 
@@ -38,6 +39,7 @@ public class Robot extends IterativeRobot {
     public void teleopInit() {
     	(new TeleopDrive()).start();
     	(new TeleopLift()).start();
+    	(new TeleopContainerArm()).start();
     }
 
     public void disabledInit(){
