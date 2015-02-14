@@ -21,13 +21,13 @@ public class CSVFile {
 		items = new TreeMap<String, Object>();
 		this.filename = filename;
 
-		// Load items into hashmap
+		// Load items into treemap
 		load();
 	}
 
 	public void load() {
 		try {
-			// Load CSV file contents to hashmap
+			// Load CSV file contents to treemap
 			FileReader fr = new FileReader(filename);
 			BufferedReader br = new BufferedReader(fr);
 			String buffer = "";

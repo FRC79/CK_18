@@ -1,6 +1,8 @@
 package org.usfirst.frc.team79.robot;
 
+import org.usfirst.frc.team79.robot.containerarm.ContainerArm;
 import org.usfirst.frc.team79.robot.drivetrain.Drivetrain;
+import org.usfirst.frc.team79.robot.totelift.ToteLift;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -14,6 +16,8 @@ public abstract class CommandBase extends Command {
 
 	public static OI oi;
 	public static Drivetrain drivetrain;
+	public static ToteLift toteLift;
+	public static ContainerArm containerArm;
 	
 	public static void init(){
 		// This MUST be here. If the OI creates Commands (which it very likely
@@ -25,6 +29,8 @@ public abstract class CommandBase extends Command {
 		
 		// Init subsystems
 		drivetrain = new Drivetrain();
+		toteLift = new ToteLift();
+		containerArm = new ContainerArm();
 	}
 	
 	public CommandBase(String name) {
