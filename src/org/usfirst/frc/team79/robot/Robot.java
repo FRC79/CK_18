@@ -2,6 +2,7 @@
 package org.usfirst.frc.team79.robot;
 
 import org.usfirst.frc.team79.robot.drivetrain.TeleopDrive;
+import org.usfirst.frc.team79.robot.totelift.TeleopLift;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -36,6 +37,7 @@ public class Robot extends IterativeRobot {
 
     public void teleopInit() {
     	(new TeleopDrive()).start();
+    	(new TeleopLift()).start();
     }
 
     public void disabledInit(){
