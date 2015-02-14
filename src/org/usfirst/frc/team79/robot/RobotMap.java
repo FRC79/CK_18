@@ -40,8 +40,8 @@ public class RobotMap {
 	public static int CONTAINER_ARM_BOTTOM_SWITCH_PORT = 0;
 	
 	// JOYSTICKS
-	public static int MOVE_STICK_ID = 0;
-	public static int ROT_STICK_ID = 1;
+	public static int DRIVER_JOYSTICK_ID = 0;
+	public static int MANIP_GAMEPAD_ID = 1;
 	
 	public static void init(){
 	}

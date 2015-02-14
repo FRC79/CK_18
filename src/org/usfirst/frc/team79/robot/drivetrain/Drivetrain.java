@@ -2,12 +2,10 @@ package org.usfirst.frc.team79.robot.drivetrain;
 
 import org.usfirst.frc.team79.robot.RobotMap;
 
-import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.RobotDrive.MotorType;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.interfaces.Accelerometer.Range;
 
 /**
  *
@@ -16,11 +14,10 @@ public class Drivetrain extends Subsystem {
     
 	public static final double kP = 0.025;	// Proportional constant for gyro feedback loop
 	public static final double GYRO_CONVERSION = 0.535714289; // Calculated experimentally
-	public static final double POWER_PERCENTAGE = 0.75;
+	public static final double POWER_PERCENTAGE = 1.0;
 	
 	public RobotDrive robotDrive;
 	public Gyro gyro;
-	public BuiltInAccelerometer accel;
 	
 	public Drivetrain(){
 		// Init components
@@ -32,8 +29,6 @@ public class Drivetrain extends Subsystem {
 		);
 		robotDrive.setInvertedMotor(MotorType.kFrontRight, true);
 		robotDrive.setInvertedMotor(MotorType.kRearRight, true);
-		
-		accel = new BuiltInAccelerometer(Range.k4G);
 		
 		gyro = new Gyro(RobotMap.GYRO_PORT);
 		gyro.initGyro(); // Gyro calibration mode (keep robot still, takes a few seconds)

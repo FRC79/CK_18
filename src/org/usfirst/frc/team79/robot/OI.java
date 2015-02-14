@@ -7,14 +7,11 @@ import edu.wpi.first.wpilibj.Joystick;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-    public Joystick moveStick, rotStick;
-    
-    public static int MODE_DUAL_JOYSTICKS = 0;
-    public static int MODE_SINGLE_JOYSTICK = 1;
+    public Joystick driverJoystick, manipGamepad;
     
     public OI(){
-    	moveStick = new Joystick(RobotMap.MOVE_STICK_ID);
-    	// Init rot stick in teleop
+    	driverJoystick = new Joystick(RobotMap.DRIVER_JOYSTICK_ID);
+    	manipGamepad = new Joystick(RobotMap.MANIP_GAMEPAD_ID);
     }
 }
 
