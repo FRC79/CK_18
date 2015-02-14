@@ -27,7 +27,7 @@ public class ToteLift extends Subsystem {
 	}
 	
 	public void setMotor(double power){
-		liftMotor.set(power);
+		liftMotor.set(-power);
 	}
 	
 	public double getPot(){
@@ -35,15 +35,15 @@ public class ToteLift extends Subsystem {
 	}
 	
 	public boolean atBottom(){
-		return bottomSwitch.get();
+		return !bottomSwitch.get();
 	}
 	
 	public boolean atTop(){
-		return topSwitch.get();
+		return !topSwitch.get();
 	}
 	
 	public boolean hasCapturedTote(){
-		return toteCapturedSwitch.get();
+		return !toteCapturedSwitch.get();
 	}
 	
     public void initDefaultCommand() {

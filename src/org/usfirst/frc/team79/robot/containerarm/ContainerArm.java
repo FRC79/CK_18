@@ -27,7 +27,7 @@ public class ContainerArm extends Subsystem {
 	}
 
 	public void setLiftMotor(double power) {
-		liftMotor.set(-power);
+		liftMotor.set(power);
 	}
 
 	public void setGripperMotor(double power) {
@@ -35,19 +35,19 @@ public class ContainerArm extends Subsystem {
 	}
 
 	public boolean isGripperClosed() {
-		return gripperClosedSwitch.get();
+		return !gripperClosedSwitch.get();
 	}
 
 	public boolean isGripperCompletelyOpen() {
-		return gripperOpenSwitch.get();
+		return !gripperOpenSwitch.get();
 	}
 
 	public boolean atTop() {
-		return topSwitch.get();
+		return !topSwitch.get();
 	}
 
 	public boolean atBottom() {
-		return bottomSwitch.get();
+		return !bottomSwitch.get();
 	}
 
 	@Override

@@ -2,6 +2,8 @@ package org.usfirst.frc.team79.robot.containerarm;
 
 import org.usfirst.frc.team79.robot.CommandBase;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 public class TeleopContainerArm extends CommandBase {
 
 	public TeleopContainerArm() {
@@ -20,27 +22,27 @@ public class TeleopContainerArm extends CommandBase {
 	@Override
 	protected void execute() {
 
-		if(Math.abs(deadband(oi.manipGamepad.getRawAxis(1))) > 0.05){
-			double directionCoeff = oi.manipGamepad.getRawAxis(1) / Math.abs(oi.manipGamepad.getRawAxis(1));
-			containerArm.setLiftMotor(0.12 * directionCoeff);
+		if(containerArm.atBottom() && deadband(-oi.manipGamepad.getRawAxis(1)) < 0){
+			containerArm.setLiftMotor(0);
+		} else if(containerArm.atTop() && deadband(-oi.manipGamepad.getRawAxis(1)) > 0){
+			containerArm.setLiftMotor(0);
 		} else {
-			containerArm.setLiftMotor(0.0);
+			if(Math.abs(-oi.manipGamepad.getRawAxis(1)) > 0.05){
+				double directionCoeff = -oi.manipGamepad.getRawAxis(1) / Math.abs(-oi.manipGamepad.getRawAxis(1));
+				containerArm.setLiftMotor(0.25 * directionCoeff);
+			} else {
+				containerArm.setLiftMotor(0.0);
+			}
 		}
 		
-		if(containerArm.atBottom() && deadband(oi.manipGamepad.getRawAxis(1)) < 0){
-			containerArm.setLiftMotor(0);
-		}
+
+		SmartDashboard.putBoolean("JOYSTICK POS", deadband(-oi.manipGamepad.getRawAxis(1)) > 0);
+		SmartDashboard.putBoolean("JOYSTICK NEG", deadband(-oi.manipGamepad.getRawAxis(1)) < 0);
 		
-		if(containerArm.atTop() && deadband(oi.manipGamepad.getRawAxis(1)) > 0){
-			containerArm.setLiftMotor(0);
-		}
-		
-		
-		
-		if(oi.manipGamepad.getRawButton(5) && !containerArm.isGripperCompletelyOpen()){
+		if(oi.manipGamepad.getRawButton(3) && !containerArm.isGripperCompletelyOpen()){
 			// open
 			containerArm.setGripperMotor(1.0);
-		} else if (oi.manipGamepad.getRawButton(6) && !containerArm.isGripperClosed()){
+		} else if (oi.manipGamepad.getRawButton(2) && !containerArm.isGripperClosed()){
 			// close
 			containerArm.setGripperMotor(-1.0);
 		} else {

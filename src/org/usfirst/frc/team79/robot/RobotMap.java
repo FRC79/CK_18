@@ -30,13 +30,13 @@ public class RobotMap {
 	public static int TOTE_LIFT_POT_PORT = 2;
 	
 	// DIGITAL INPUTS
-	public static int TOTE_LIFT_TOP_SWITCH_PORT = 3;
+	public static int TOTE_LIFT_TOP_SWITCH_PORT = 1;
 	public static int TOTE_LIFT_BOTTOM_SWITCH_PORT = 2;
 	public static int TOTE_CAPTURED_SWITCH_PORT = 4;
 	
 	public static int CONTAINER_GRIPPER_OPEN_SWITCH_PORT = 5;
 	public static int CONTAINER_GRIPPER_CLOSED_SWITCH_PORT = 6;
-	public static int CONATINER_ARM_TOP_SWITCH_PORT = 1;
+	public static int CONATINER_ARM_TOP_SWITCH_PORT = 3;
 	public static int CONTAINER_ARM_BOTTOM_SWITCH_PORT = 0;
 	
 	// JOYSTICKS

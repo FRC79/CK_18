@@ -23,14 +23,12 @@ public class TeleopLift extends CommandBase {
 	protected void execute() {
 		SmartDashboard.putNumber("LIFT POT", toteLift.getPot());
 		
-		toteLift.setMotor(Math.pow(deadband(oi.manipGamepad.getRawAxis(3)), 3));
-		
-		if(toteLift.atBottom() && deadband(oi.manipGamepad.getRawAxis(3)) < 0){
+		if(toteLift.atBottom() && deadband(-oi.manipGamepad.getRawAxis(3)) < 0){
 			toteLift.setMotor(0);
-		}
-		
-		if(toteLift.atTop() && deadband(oi.manipGamepad.getRawAxis(3)) > 0){
+		} else if(toteLift.atTop() && deadband(-oi.manipGamepad.getRawAxis(3)) > 0){
 			toteLift.setMotor(0);
+		} else {
+			toteLift.setMotor(Math.pow(deadband(-oi.manipGamepad.getRawAxis(3)), 3));
 		}
 	}
 
