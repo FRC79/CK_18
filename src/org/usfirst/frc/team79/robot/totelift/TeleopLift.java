@@ -1,34 +1,39 @@
 package org.usfirst.frc.team79.robot.totelift;
 
 import org.usfirst.frc.team79.robot.CommandBase;
+import org.usfirst.frc.team79.robot.util.KUtil;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class TeleopLift extends CommandBase {
 
-	public TeleopLift(){
+	public TeleopLift() {
 		requires(toteLift);
 	}
-	
-	private double deadband(double joystickval) {
-		return (Math.abs(joystickval) > 0.05) ? joystickval : 0.0;
-	}
-	
+
 	@Override
 	protected void initialize() {
-		
+
 	}
 
 	@Override
 	protected void execute() {
+		// Output potentiometer values to SD
 		SmartDashboard.putNumber("LIFT POT", toteLift.getPot());
-		
-		if(toteLift.atBottom() && deadband(-oi.manipGamepad.getRawAxis(3)) < 0){
+
+		// Tote Lift Mechanism
+		if (toteLift.atBottom()
+				&& KUtil.deadband(-oi.manipGamepad.getRawAxis(3)) < 0) {
+			// If we're at the bottom and we want to go down, stop.
 			toteLift.setMotor(0);
-		} else if(toteLift.atTop() && deadband(-oi.manipGamepad.getRawAxis(3)) > 0){
+		} else if (toteLift.atTop()
+				&& KUtil.deadband(-oi.manipGamepad.getRawAxis(3)) > 0) {
+			// If we're at the top and want to go up, stop.
 			toteLift.setMotor(0);
 		} else {
-			toteLift.setMotor(Math.pow(deadband(-oi.manipGamepad.getRawAxis(3)), 3));
+			// Move according to the user input.
+			toteLift.setMotor(Math.pow(
+					KUtil.deadband(-oi.manipGamepad.getRawAxis(3)), 3));
 		}
 	}
 

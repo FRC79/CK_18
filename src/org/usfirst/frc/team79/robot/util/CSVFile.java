@@ -78,6 +78,10 @@ public class CSVFile {
 				items.put(key, value);
 			}
 
+			System.out.println();
+			System.out.println("SUCCESS: " + filename + " loaded!");
+			System.out.println();
+			
 			fr.close();
 		} catch (FileNotFoundException fe) {
 			save();
@@ -120,7 +124,11 @@ public class CSVFile {
 									+ s_lineSeparator);
 						}
 					}
-
+					
+					System.out.println();
+					System.out.println("SUCCESS: " + filename + " saved!");
+					System.out.println();
+					
 					fw.flush();
 					fw.close();
 				} catch (Exception e) {

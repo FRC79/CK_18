@@ -17,6 +17,7 @@ public class ToteLift extends Subsystem {
 	AnalogPotentiometer liftPot;
 
 	public ToteLift(){
+		// Init components
 		liftMotor = new VictorSP(RobotMap.TOTE_LIFT_MOTOR_PORT);
 		
 		topSwitch = new LimitSwitch(RobotMap.TOTE_LIFT_TOP_SWITCH_PORT);
@@ -27,7 +28,7 @@ public class ToteLift extends Subsystem {
 	}
 	
 	public void setMotor(double power){
-		liftMotor.set(-power);
+		liftMotor.set(-power);	// motor is inverted
 	}
 	
 	public double getPot(){

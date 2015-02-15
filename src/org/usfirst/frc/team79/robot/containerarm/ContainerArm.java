@@ -13,6 +13,7 @@ public class ContainerArm extends Subsystem {
 			gripperClosedSwitch;
 
 	public ContainerArm() {
+		// Init components
 		liftMotor = new VictorSP(RobotMap.CONTAINER_ARM_MOTOR_PORT);
 		gripperMotor = new VictorSP(RobotMap.CONTAINER_GRIPPER_MOTOR_PORT);
 
