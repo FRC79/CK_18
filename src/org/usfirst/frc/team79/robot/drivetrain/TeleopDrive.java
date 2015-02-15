@@ -1,6 +1,7 @@
 package org.usfirst.frc.team79.robot.drivetrain;
 
 import org.usfirst.frc.team79.robot.CommandBase;
+import org.usfirst.frc.team79.robot.util.KUtil;
 
 public class TeleopDrive extends CommandBase {
 
@@ -12,10 +13,6 @@ public class TeleopDrive extends CommandBase {
 		return oi.driverJoystick.getRawAxis(3);
 	}
 
-	private double deadband(double joystickval) {
-		return (Math.abs(joystickval) > 0.05) ? joystickval : 0.0;
-	}
-
 	// Called just before this Command runs the first time
 	protected void initialize() {
 	}
@@ -24,8 +21,8 @@ public class TeleopDrive extends CommandBase {
 	protected void execute() {
 
 		// Maps 3-axis joystick to mecanum drive (X, Y, Rotation)
-		drivetrain.driveXY(deadband(oi.driverJoystick.getX()),
-				deadband(oi.driverJoystick.getY()), deadband(getJoystickRot()));
+		drivetrain.driveXY(KUtil.deadband(oi.driverJoystick.getX()),
+				KUtil.deadband(oi.driverJoystick.getY()), KUtil.deadband(getJoystickRot()));
 
 	}
 

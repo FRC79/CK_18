@@ -1,10 +1,10 @@
 package org.usfirst.frc.team79.robot.drivetrain;
 
 import org.usfirst.frc.team79.robot.CommandBase;
+import org.usfirst.frc.team79.robot.util.KUtil;
 
 public class TeleopDriveGyro extends CommandBase {
 
-	static final double JOYSTICK_DEADBAND = 0.05;
 	static final double ANGLE_DELTA_TOLERANCE = 0.05;
 
 	boolean userNowRotating, userWasRotating, changeInTheta, stoppingRotation;
@@ -17,10 +17,6 @@ public class TeleopDriveGyro extends CommandBase {
 
 	private double getJoystickRot() {
 		return oi.driverJoystick.getRawAxis(3);
-	}
-
-	private double deadband(double joystickval) {
-		return (Math.abs(joystickval) > 0.05) ? joystickval : 0.0;
 	}
 
 	// Called just before this Command runs the first time
@@ -37,14 +33,14 @@ public class TeleopDriveGyro extends CommandBase {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 		// Update current state variable (Is the user rotating?)
-		userNowRotating = (Math.abs(getJoystickRot()) > JOYSTICK_DEADBAND);
+		userNowRotating = (Math.abs(getJoystickRot()) > KUtil.DEADBAND_TOLERANCE);
 		changeInTheta = (Math.abs(drivetrain.getGyro() - lastGyroVal) > ANGLE_DELTA_TOLERANCE);
 
 		// Performs gyro-stabilization when translating to eliminate drift
 		double rotVal = 0.0;
 		if (userNowRotating) {
 			// Rotate at user input power
-			rotVal = deadband(getJoystickRot());
+			rotVal = KUtil.deadband(getJoystickRot());
 		} else {
 			if (userWasRotating) {
 				// Begin to decelerate the angular rotation
@@ -71,8 +67,8 @@ public class TeleopDriveGyro extends CommandBase {
 		}
 
 		// Maps 3-axis joystick to mecanum drive (X, Y, Rotation)
-		drivetrain.driveXY(deadband(oi.driverJoystick.getX()),
-				deadband(oi.driverJoystick.getY()), rotVal);
+		drivetrain.driveXY(KUtil.deadband(oi.driverJoystick.getX()),
+				KUtil.deadband(oi.driverJoystick.getY()), rotVal);
 
 		// Update previous state variable (Was the user just rotating?)
 		userWasRotating = userNowRotating;
