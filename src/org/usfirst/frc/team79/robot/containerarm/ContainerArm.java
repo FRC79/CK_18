@@ -1,28 +1,28 @@
 package org.usfirst.frc.team79.robot.containerarm;
 
 import org.usfirst.frc.team79.robot.RobotMap;
+import org.usfirst.frc.team79.robot.util.LimitSwitch;
 
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class ContainerArm extends Subsystem {
 
 	VictorSP liftMotor, gripperMotor;
-	DigitalInput topSwitch, bottomSwitch, gripperOpenSwitch,
+	LimitSwitch topSwitch, bottomSwitch, gripperOpenSwitch,
 			gripperClosedSwitch;
 
 	public ContainerArm() {
 		liftMotor = new VictorSP(RobotMap.CONTAINER_ARM_MOTOR_PORT);
 		gripperMotor = new VictorSP(RobotMap.CONTAINER_GRIPPER_MOTOR_PORT);
 
-		topSwitch = new DigitalInput(RobotMap.CONATINER_ARM_TOP_SWITCH_PORT);
-		bottomSwitch = new DigitalInput(
+		topSwitch = new LimitSwitch(RobotMap.CONATINER_ARM_TOP_SWITCH_PORT);
+		bottomSwitch = new LimitSwitch(
 				RobotMap.CONTAINER_ARM_BOTTOM_SWITCH_PORT);
 
-		gripperOpenSwitch = new DigitalInput(
+		gripperOpenSwitch = new LimitSwitch(
 				RobotMap.CONTAINER_GRIPPER_OPEN_SWITCH_PORT);
-		gripperClosedSwitch = new DigitalInput(
+		gripperClosedSwitch = new LimitSwitch(
 				RobotMap.CONTAINER_GRIPPER_CLOSED_SWITCH_PORT);
 	}
 
@@ -35,19 +35,19 @@ public class ContainerArm extends Subsystem {
 	}
 
 	public boolean isGripperClosed() {
-		return !gripperClosedSwitch.get();
+		return gripperClosedSwitch.get();
 	}
 
 	public boolean isGripperCompletelyOpen() {
-		return !gripperOpenSwitch.get();
+		return gripperOpenSwitch.get();
 	}
 
 	public boolean atTop() {
-		return !topSwitch.get();
+		return topSwitch.get();
 	}
 
 	public boolean atBottom() {
-		return !bottomSwitch.get();
+		return bottomSwitch.get();
 	}
 
 	@Override
