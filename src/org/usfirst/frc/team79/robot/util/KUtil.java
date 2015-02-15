@@ -11,4 +11,8 @@ public class KUtil {
 	public static double deadband(double joystickval, double tolerance){
 		return (Math.abs(joystickval) > tolerance) ? joystickval : 0.0;
 	}
+	
+	public static boolean withinTolerance(double input, double target, double tolerance){
+		return (Math.abs(target - input) <= tolerance);
+	}
 }

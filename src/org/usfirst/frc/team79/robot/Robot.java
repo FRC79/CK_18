@@ -3,12 +3,11 @@ package org.usfirst.frc.team79.robot;
 
 import org.usfirst.frc.team79.robot.containerarm.TeleopContainerArm;
 import org.usfirst.frc.team79.robot.drivetrain.TeleopDrive;
+import org.usfirst.frc.team79.robot.totelift.CalibrateLift;
 import org.usfirst.frc.team79.robot.totelift.TeleopLift;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -20,9 +19,17 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 public class Robot extends IterativeRobot {
 	
     public void robotInit() {
+    	System.out.println();
+    	System.out.println("--- robotInit() STARTED ------------------");
+    	System.out.println();
+    	
     	// Load settings and init subsystems
-//    	RobotMap.loadCSVSettings();
+    	RobotMap.init();
     	CommandBase.init();
+    	
+    	System.out.println();
+    	System.out.println("--- robotInit() FINISHED ------------------");
+    	System.out.println();
     }
 	
 	public void disabledPeriodic() {
@@ -51,6 +58,7 @@ public class Robot extends IterativeRobot {
     }
     
     public void testPeriodic() {
-        LiveWindow.run();
+//        LiveWindow.run();
+    	(new CalibrateLift()).start();
     }
 }
