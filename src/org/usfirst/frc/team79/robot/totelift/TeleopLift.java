@@ -7,20 +7,36 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class TeleopLift extends CommandBase {
 
+	double LIFT_POWER = 1.0;
+	double LOWER_POWER = -0.25;
+	double SLOW_LOWER_POWER = -0.12;
+	double SLOW_LIFT_POWER = 0.5;
+	
+	double potStop = 2000;
+	double snapPower = -0.50;
+	
+	double lastPot = 0;
+	
 	public TeleopLift() {
 		requires(toteLift);
 	}
 
 	@Override
 	protected void initialize() {
-
+		lastPot = toteLift.getPot();
 	}
 
 	@Override
 	protected void execute() {
+		
+		double dp = Math.abs(toteLift.getPot() - lastPot);
+		
 		// Output potentiometer values to SD
 		SmartDashboard.putNumber("LIFT POT", toteLift.getPot());
+		SmartDashboard.putNumber("DELTA", dp);
 
+		
+		
 		// Tote Lift Mechanism
 		if (toteLift.atBottom()
 				&& KUtil.deadband(-oi.manipGamepad.getRawAxis(3)) < 0) {
@@ -31,10 +47,50 @@ public class TeleopLift extends CommandBase {
 			// If we're at the top and want to go up, stop.
 			toteLift.setMotor(0);
 		} else {
-			// Move according to the user input.
-			toteLift.setMotor(Math.pow(
-					KUtil.deadband(-oi.manipGamepad.getRawAxis(3)), 3));
+			if(oi.manipGamepad.getRawButton(2)){
+				if(toteLift.getPot() <= potStop){
+					if(toteLift.atBottom()){
+						toteLift.setMotor(0);
+					} else {
+						toteLift.setMotor(SLOW_LOWER_POWER);
+					}
+				} else {
+					toteLift.setMotor(snapPower);
+				}
+			} else if(oi.manipGamepad.getRawButton(3)) {
+				if(toteLift.atTop()){
+					toteLift.setMotor(0);
+				} else {
+					toteLift.setMotor(LIFT_POWER);
+				}
+			} else {
+				// If we want to move up or down and we aren't hitting a limit
+				if (Math.abs(-oi.manipGamepad.getRawAxis(3)) > KUtil.DEADBAND_TOLERANCE) {
+					// Drive continuously at set speed
+					double directionCoeff = -oi.manipGamepad.getRawAxis(3)
+							/ Math.abs(-oi.manipGamepad.getRawAxis(3));
+					
+					if(directionCoeff < 0){
+						
+						if(toteLift.getPot() > potStop){
+							// Down
+							toteLift.setMotor(LOWER_POWER);
+						} else {
+							toteLift.setMotor(SLOW_LOWER_POWER);
+						}
+						
+					} else if(directionCoeff > 0){
+						// Up
+						toteLift.setMotor(SLOW_LIFT_POWER);
+					}
+				} else {
+					// Stop
+					toteLift.setMotor(0.0);
+				}
+			}
 		}
+		
+		lastPot = toteLift.getPot();
 	}
 
 	@Override
