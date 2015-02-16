@@ -3,9 +3,12 @@ package org.usfirst.frc.team79.robot.containerarm;
 import org.usfirst.frc.team79.robot.CommandBase;
 import org.usfirst.frc.team79.robot.util.KUtil;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 public class TeleopContainerArm extends CommandBase {
 
-	double LIFT_POWER = 0.25;
+	double SLOW_LIFT_POWER = 0.25;
+	double LIFT_POWER = 0.6;
 	
 	public TeleopContainerArm() {
 		requires(containerArm);
@@ -29,28 +32,38 @@ public class TeleopContainerArm extends CommandBase {
 			// If we're at the top, and want to go up, stop.
 			containerArm.setLiftMotor(0);
 		} else {
-			// If we want to move up or down and we aren't hitting a limit
-			if (Math.abs(-oi.manipGamepad.getRawAxis(1)) > KUtil.DEADBAND_TOLERANCE) {
-				// Drive continuously at set speed
-				double directionCoeff = -oi.manipGamepad.getRawAxis(1)
-						/ Math.abs(-oi.manipGamepad.getRawAxis(1));
-				containerArm.setLiftMotor(LIFT_POWER * directionCoeff);
+			if(oi.manipGamepad.getRawButton(4)){
+				if(containerArm.atTop()){
+					containerArm.setLiftMotor(0);
+				} else {
+					containerArm.setLiftMotor(LIFT_POWER);
+				}
 			} else {
-				// Stop
-				containerArm.setLiftMotor(0.0);
+				// If we want to move up or down and we aren't hitting a limit
+				if (Math.abs(-oi.manipGamepad.getRawAxis(1)) > KUtil.DEADBAND_TOLERANCE) {
+					// Drive continuously at set speed
+					double directionCoeff = -oi.manipGamepad.getRawAxis(1)
+							/ Math.abs(-oi.manipGamepad.getRawAxis(1));
+					containerArm.setLiftMotor(SLOW_LIFT_POWER * directionCoeff);
+				} else {
+					// Stop
+					containerArm.setLiftMotor(0.0);
+				}
 			}
 		}
 
+		SmartDashboard.putBoolean("OPEN", containerArm.isGripperCompletelyOpen());
+		SmartDashboard.putBoolean("CLOSED", containerArm.isGripperClosed());
 		
 		// Container gripper open/close mechanism
-		if (oi.manipGamepad.getRawButton(3)
+		if (KUtil.deadband(oi.manipGamepad.getRawAxis(0)) < 0
 				&& !containerArm.isGripperCompletelyOpen()) {
 			// Keep opening the gripper
-			containerArm.setGripperMotor(1.0);
-		} else if (oi.manipGamepad.getRawButton(2)
+			containerArm.setGripperMotor(-1.0);
+		} else if (KUtil.deadband(oi.manipGamepad.getRawAxis(0)) > 0
 				&& !containerArm.isGripperClosed()) {
 			// Keep closing the gripper
-			containerArm.setGripperMotor(-1.0);
+			containerArm.setGripperMotor(1.0);
 		} else {
 			// Stop
 			containerArm.setGripperMotor(0);
