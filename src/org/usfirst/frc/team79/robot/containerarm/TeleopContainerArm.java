@@ -9,6 +9,7 @@ public class TeleopContainerArm extends CommandBase {
 
 	double SLOW_LIFT_POWER = 0.25;
 	double LIFT_POWER = 0.6;
+	double LOWER_POWER = -0.5;
 	
 	public TeleopContainerArm() {
 		requires(containerArm);
@@ -23,21 +24,23 @@ public class TeleopContainerArm extends CommandBase {
 	protected void execute() {
 
 		// Container Arm lifting mechanism
-		if (containerArm.atBottom()
-				&& KUtil.deadband(-oi.manipGamepad.getRawAxis(1)) < 0) {
-			// If we're at the bottom, and we want to go down, stop.
-			containerArm.setLiftMotor(0);
-		} else if (containerArm.atTop()
-				&& KUtil.deadband(-oi.manipGamepad.getRawAxis(1)) > 0) {
-			// If we're at the top, and want to go up, stop.
-			containerArm.setLiftMotor(0);
-		} else {
+//		if (containerArm.atBottom()
+//				&& KUtil.deadband(-oi.manipGamepad.getRawAxis(1)) < 0) {
+//			// If we're at the bottom, and we want to go down, stop.
+//			containerArm.setLiftMotor(0);
+//		} else if (containerArm.atTop()
+//				&& KUtil.deadband(-oi.manipGamepad.getRawAxis(1)) > 0) {
+//			// If we're at the top, and want to go up, stop.
+//			containerArm.setLiftMotor(0);
+//		} else {
 			if(oi.manipGamepad.getRawButton(4)){
-				if(containerArm.atTop()){
-					containerArm.setLiftMotor(0);
-				} else {
+//				if(containerArm.atTop()){
+//					containerArm.setLiftMotor(0);
+//				} else {
 					containerArm.setLiftMotor(LIFT_POWER);
-				}
+//				}
+			} else if(oi.manipGamepad.getRawButton(1)){
+				containerArm.setLiftMotor(LOWER_POWER);
 			} else {
 				// If we want to move up or down and we aren't hitting a limit
 				if (Math.abs(-oi.manipGamepad.getRawAxis(1)) > KUtil.DEADBAND_TOLERANCE) {
@@ -50,7 +53,7 @@ public class TeleopContainerArm extends CommandBase {
 					containerArm.setLiftMotor(0.0);
 				}
 			}
-		}
+//		}
 
 		SmartDashboard.putBoolean("OPEN", containerArm.isGripperCompletelyOpen());
 		SmartDashboard.putBoolean("CLOSED", containerArm.isGripperClosed());
