@@ -8,13 +8,13 @@ import edu.wpi.first.wpilibj.RobotDrive.MotorType;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- *
+ *	Drivetrain subsystem
  */
 public class Drivetrain extends Subsystem {
     
 	public static final double kP = 0.025;	// Proportional constant for gyro feedback loop
 	public static final double GYRO_CONVERSION = 0.535714289; // Calculated experimentally
-	public static final double POWER_PERCENTAGE = 1.0;
+	public static final double POWER_PERCENTAGE = 1.0;		// Ratio if input motor value and output motor value
 	
 	public RobotDrive robotDrive;
 	public Gyro gyro;
@@ -36,22 +36,26 @@ public class Drivetrain extends Subsystem {
 	
 	
 	
-	// Cartesian Mecanum
-	public void driveXY(double powerX, double powerY){
-		driveXY(powerX, powerY, 0);
+	// Drives with motor outputs in the x and y directions with no rotation
+	public void move(double powerX, double powerY){
+		move(powerX, powerY, 0);
 	}
 	
-	// Cartesian Mecanum with rotation
-	public void driveXY(double powerX, double powerY, double powerRot){
+	// Drives with motor outputs in the x, y, and yaw directions
+	public void move(double powerX, double powerY, double powerRot){
 		robotDrive.mecanumDrive_Cartesian(powerX * POWER_PERCENTAGE, powerY * POWER_PERCENTAGE, powerRot * POWER_PERCENTAGE, 0);
 	}
 	
-	// Cartesian mecanum with auto-stabilization
-	public void driveXY_AS(double powerX, double powerY){
-		driveXY(powerX, powerY, -getGyro()*kP);
+	// Drives with motor outputs in the x and y 
+	// directions while maintaining orientation with the gyro.
+	public void moveStraightly(double powerX, double powerY){
+		move(powerX, powerY, -getGyro()*kP);
 	}
 	
-	
+	public void stop(){
+		move(0, 0);
+	}
+
 	
 	public double getGyro() {
 		return gyro.getAngle() * GYRO_CONVERSION;
@@ -62,6 +66,7 @@ public class Drivetrain extends Subsystem {
 	}
 	
     public void initDefaultCommand() {
+    	setDefaultCommand(new StopDrivetrain());
     }
 }
 
