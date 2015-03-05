@@ -1,4 +1,4 @@
-package org.usfirst.team79.robot.gripper;
+package org.usfirst.frc.team79.robot.gripper;
 
 import org.usfirst.frc.team79.robot.RobotMap;
 import org.usfirst.frc.team79.robot.util.LimitSwitch;

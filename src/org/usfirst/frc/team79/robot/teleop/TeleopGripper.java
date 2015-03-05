@@ -1,9 +1,9 @@
 package org.usfirst.frc.team79.robot.teleop;
 
 import org.usfirst.frc.team79.robot.CommandBase;
+import org.usfirst.frc.team79.robot.gripper.Gripper;
 import org.usfirst.frc.team79.robot.util.Gamepad;
 import org.usfirst.frc.team79.robot.util.KUtil;
-import org.usfirst.team79.robot.gripper.Gripper;
 
 public class TeleopGripper extends CommandBase {
 

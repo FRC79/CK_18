@@ -2,8 +2,8 @@ package org.usfirst.frc.team79.robot;
 
 import org.usfirst.frc.team79.robot.containerarm.ContainerArm;
 import org.usfirst.frc.team79.robot.drivetrain.Drivetrain;
+import org.usfirst.frc.team79.robot.gripper.Gripper;
 import org.usfirst.frc.team79.robot.totelift.ToteLift;
-import org.usfirst.team79.robot.gripper.Gripper;
 
 import edu.wpi.first.wpilibj.command.Command;
 

@@ -1,35 +1,38 @@
-package org.usfirst.team79.robot.gripper;
+package org.usfirst.frc.team79.robot.gripper;
 
 import org.usfirst.frc.team79.robot.CommandBase;
 
-public class OpenGripper extends CommandBase {
+public class StopGripper extends CommandBase {
 
-	public OpenGripper() {
+	public StopGripper() {
 		requires(gripper);
 	}
 	
 	@Override
 	protected void initialize() {
+		setTimeout(0.004);
 	}
 
 	@Override
 	protected void execute() {
-		gripper.setMotor(Gripper.OPEN_POWER);
-	}
-
-	@Override
-	protected boolean isFinished() {
-		return gripper.isCompletelyOpen();
-	}
-
-	@Override
-	protected void end() {
 		gripper.stop();
 	}
 
 	@Override
+	protected boolean isFinished() {
+		return isTimedOut();
+	}
+
+	@Override
+	protected void end() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
 	protected void interrupted() {
-		
+		// TODO Auto-generated method stub
+
 	}
 
 }
