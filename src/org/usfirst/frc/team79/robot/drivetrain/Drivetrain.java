@@ -1,6 +1,7 @@
 package org.usfirst.frc.team79.robot.drivetrain;
 
 import org.usfirst.frc.team79.robot.RobotMap;
+import org.usfirst.frc.team79.robot.util.LimitSwitch;
 
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.RobotDrive;
@@ -13,11 +14,12 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Drivetrain extends Subsystem {
     
 	public static final double kP = 0.025;	// Proportional constant for gyro feedback loop
-	public static final double GYRO_CONVERSION = 0.535714289; // Calculated experimentally
+	public static final double GYRO_CONVERSION = 1.0; // Calculated experimentally
 	public static final double POWER_PERCENTAGE = 1.0;		// Ratio if input motor value and output motor value
 	
 	public RobotDrive robotDrive;
 	public Gyro gyro;
+	public LimitSwitch toteCapturedSwitch;
 	
 	public Drivetrain(){
 		// Init components
@@ -32,6 +34,8 @@ public class Drivetrain extends Subsystem {
 		
 		gyro = new Gyro(RobotMap.GYRO_PORT);
 		gyro.initGyro(); // Gyro calibration mode (keep robot still, takes a few seconds)
+	
+		toteCapturedSwitch = new LimitSwitch(RobotMap.TOTE_CAPTURED_SWITCH_PORT);
 	}
 	
 	
@@ -63,6 +67,10 @@ public class Drivetrain extends Subsystem {
 	
 	public void resetGyro(){
 		gyro.reset();
+	}
+	
+	public boolean isToteCaptured(){
+		return toteCapturedSwitch.get();
 	}
 	
     public void initDefaultCommand() {

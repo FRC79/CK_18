@@ -1,11 +1,17 @@
 
 package org.usfirst.frc.team79.robot;
 
+import org.usfirst.frc.team79.robot.auton.DoNothing;
+import org.usfirst.frc.team79.robot.auton.DriveBackward;
+import org.usfirst.frc.team79.robot.auton.SingleTote;
 import org.usfirst.frc.team79.robot.teleop.OI;
 import org.usfirst.frc.team79.robot.teleop.TeleopCommandGroup;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -15,6 +21,8 @@ import edu.wpi.first.wpilibj.command.Scheduler;
  * directory.
  */
 public class Robot extends IterativeRobot {
+	
+	SendableChooser autonSelector;
 	
     public void robotInit() {
     	System.out.println();
@@ -26,6 +34,13 @@ public class Robot extends IterativeRobot {
     	OI.init();
     	CommandBase.init();
     	
+    	autonSelector = new SendableChooser();
+    	autonSelector.addDefault("Drive backwards", new DriveBackward());
+    	autonSelector.addObject("Do nothing", new DoNothing());
+    	autonSelector.addObject("Single tote", new SingleTote());
+    	
+    	SmartDashboard.putData("Autonomous Mode", autonSelector);
+    	
     	System.out.println();
     	System.out.println("--- robotInit() FINISHED ------------------");
     	System.out.println();
@@ -36,6 +51,8 @@ public class Robot extends IterativeRobot {
 	}
 
     public void autonomousInit() {
+    	Command autonCommand = (Command) autonSelector.getSelected();
+    	autonCommand.start();
     }
 
     public void autonomousPeriodic() {
