@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class ToteLift extends Subsystem {
     
 	VictorSP liftMotor;
-	LimitSwitch bottomSwitch, topSwitch, toteCapturedSwitch;
+	LimitSwitch bottomSwitch, topSwitch;
 	AnalogPotentiometer liftPot;
 
 	public ToteLift(){
@@ -22,7 +22,6 @@ public class ToteLift extends Subsystem {
 		
 		topSwitch = new LimitSwitch(RobotMap.TOTE_LIFT_TOP_SWITCH_PORT);
 		bottomSwitch = new LimitSwitch(RobotMap.TOTE_LIFT_BOTTOM_SWITCH_PORT);
-		toteCapturedSwitch = new LimitSwitch(RobotMap.TOTE_CAPTURED_SWITCH_PORT);
 		
 		liftPot = new AnalogPotentiometer(RobotMap.TOTE_LIFT_POT_PORT, 3600); // 10 turns * 360 degs
 	}
@@ -41,10 +40,6 @@ public class ToteLift extends Subsystem {
 	
 	public boolean atTop(){
 		return topSwitch.get();
-	}
-	
-	public boolean hasCapturedTote(){
-		return toteCapturedSwitch.get();
 	}
 	
     public void initDefaultCommand() {

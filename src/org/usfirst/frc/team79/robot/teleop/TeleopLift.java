@@ -1,4 +1,4 @@
-package org.usfirst.frc.team79.robot.totelift;
+package org.usfirst.frc.team79.robot.teleop;
 
 import org.usfirst.frc.team79.robot.CommandBase;
 import org.usfirst.frc.team79.robot.util.KUtil;
@@ -29,25 +29,19 @@ public class TeleopLift extends CommandBase {
 	@Override
 	protected void execute() {
 		
-		double dp = Math.abs(toteLift.getPot() - lastPot);
-		
-		// Output potentiometer values to SD
-		SmartDashboard.putNumber("LIFT POT", toteLift.getPot());
-		SmartDashboard.putNumber("DELTA", dp);
-
-		
+		SmartDashboard.putNumber("POT", toteLift.getPot());
 		
 		// Tote Lift Mechanism
 		if (toteLift.atBottom()
-				&& KUtil.deadband(-oi.manipGamepad.getRawAxis(3)) < 0) {
+				&& KUtil.deadband(OI.manipGamepad.getRawAxis(3)) < 0) {
 			// If we're at the bottom and we want to go down, stop.
 			toteLift.setMotor(0);
 		} else if (toteLift.atTop()
-				&& KUtil.deadband(-oi.manipGamepad.getRawAxis(3)) > 0) {
+				&& KUtil.deadband(OI.manipGamepad.getRawAxis(3)) > 0) {
 			// If we're at the top and want to go up, stop.
 			toteLift.setMotor(0);
 		} else {
-			if(oi.manipGamepad.getRawButton(2)){
+			if(OI.manipGamepad.getRawButton(2)){
 				if(toteLift.getPot() <= potStop){
 					if(toteLift.atBottom()){
 						toteLift.setMotor(0);
@@ -57,7 +51,7 @@ public class TeleopLift extends CommandBase {
 				} else {
 					toteLift.setMotor(snapPower);
 				}
-			} else if(oi.manipGamepad.getRawButton(3)) {
+			} else if(OI.manipGamepad.getRawButton(3)) {
 				if(toteLift.atTop()){
 					toteLift.setMotor(0);
 				} else {
@@ -65,10 +59,10 @@ public class TeleopLift extends CommandBase {
 				}
 			} else {
 				// If we want to move up or down and we aren't hitting a limit
-				if (Math.abs(-oi.manipGamepad.getRawAxis(3)) > KUtil.DEADBAND_TOLERANCE) {
+				if (Math.abs(OI.manipGamepad.getRawAxis(3)) > KUtil.DEADBAND_TOLERANCE) {
 					// Drive continuously at set speed
-					double directionCoeff = -oi.manipGamepad.getRawAxis(3)
-							/ Math.abs(-oi.manipGamepad.getRawAxis(3));
+					double directionCoeff = OI.manipGamepad.getRawAxis(3)
+							/ Math.abs(OI.manipGamepad.getRawAxis(3));
 					
 					if(directionCoeff < 0){
 						

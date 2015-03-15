@@ -1,13 +1,18 @@
 
 package org.usfirst.frc.team79.robot;
 
-import org.usfirst.frc.team79.robot.containerarm.TeleopContainerArm;
-import org.usfirst.frc.team79.robot.drivetrain.TeleopDrive;
-import org.usfirst.frc.team79.robot.totelift.CalibrateLift;
-import org.usfirst.frc.team79.robot.totelift.TeleopLift;
+import org.usfirst.frc.team79.robot.auton.DoNothing;
+import org.usfirst.frc.team79.robot.auton.DriveBackward;
+import org.usfirst.frc.team79.robot.auton.GrabContainer;
+import org.usfirst.frc.team79.robot.auton.SingleTote;
+import org.usfirst.frc.team79.robot.teleop.OI;
+import org.usfirst.frc.team79.robot.teleop.TeleopCommandGroup;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -18,14 +23,25 @@ import edu.wpi.first.wpilibj.command.Scheduler;
  */
 public class Robot extends IterativeRobot {
 	
+	SendableChooser autonSelector;
+	
     public void robotInit() {
     	System.out.println();
     	System.out.println("--- robotInit() STARTED ------------------");
     	System.out.println();
     	
-    	// Load settings and init subsystems
+    	// Load settings and init subsystems (MUST GO IN THIS ORDER)
     	RobotMap.init();
+    	OI.init();
     	CommandBase.init();
+    	
+    	autonSelector = new SendableChooser();
+    	autonSelector.addDefault("Drive backwards", new DriveBackward());
+    	autonSelector.addObject("Do nothing", new DoNothing());
+    	autonSelector.addObject("Single tote", new SingleTote());
+    	autonSelector.addObject("Grab Container", new GrabContainer());
+    	
+    	SmartDashboard.putData("Autonomous Mode", autonSelector);
     	
     	System.out.println();
     	System.out.println("--- robotInit() FINISHED ------------------");
@@ -37,6 +53,8 @@ public class Robot extends IterativeRobot {
 	}
 
     public void autonomousInit() {
+    	Command autonCommand = (Command) autonSelector.getSelected();
+    	autonCommand.start();
     }
 
     public void autonomousPeriodic() {
@@ -44,9 +62,8 @@ public class Robot extends IterativeRobot {
     }
 
     public void teleopInit() {
-    	(new TeleopDrive()).start();
-    	(new TeleopLift()).start();
-    	(new TeleopContainerArm()).start();
+    	// Start the teleop command group
+    	(new TeleopCommandGroup()).start();
     }
 
     public void disabledInit(){
@@ -59,6 +76,5 @@ public class Robot extends IterativeRobot {
     
     public void testPeriodic() {
 //        LiveWindow.run();
-    	(new CalibrateLift()).start();
     }
 }

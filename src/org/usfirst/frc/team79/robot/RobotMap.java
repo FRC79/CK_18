@@ -1,6 +1,5 @@
 package org.usfirst.frc.team79.robot;
 
-import org.usfirst.frc.team79.robot.util.CSVFile;
 
 
 /**
@@ -10,9 +9,6 @@ import org.usfirst.frc.team79.robot.util.CSVFile;
  * floating around.
  */
 public class RobotMap {
-	
-	// CSV Files
-	public static CSVFile CALIB_CSV;
 	
 	// Ports and IDs for individual modules
 	
@@ -47,7 +43,6 @@ public class RobotMap {
 	public static int MANIP_GAMEPAD_ID = 1;
 	
 	public static void init(){
-		CALIB_CSV = new CSVFile("CALIB.csv");
 	}
 	
 	// Load configuration settings from CSVs

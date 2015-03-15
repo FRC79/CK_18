@@ -1,7 +1,12 @@
-package org.usfirst.frc.team79.robot.drivetrain;
+package org.usfirst.frc.team79.robot.teleop;
 
 import org.usfirst.frc.team79.robot.CommandBase;
 import org.usfirst.frc.team79.robot.util.KUtil;
+
+/*
+ * 	Teleop Drivetain command for taking direct input from the
+ *  driver joystick and map to the drivetrain w/o gyro correction.
+ */
 
 public class TeleopDrive extends CommandBase {
 
@@ -9,21 +14,20 @@ public class TeleopDrive extends CommandBase {
 		requires(drivetrain);
 	}
 
-	private double getJoystickRot() {
-		return oi.driverJoystick.getRawAxis(3);
-	}
-
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		drivetrain.resetGyro();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 
 		// Maps 3-axis joystick to mecanum drive (X, Y, Rotation)
-		drivetrain.driveXY(KUtil.deadband(oi.driverJoystick.getX()),
-				KUtil.deadband(oi.driverJoystick.getY()), KUtil.deadband(getJoystickRot()));
+		drivetrain.move(KUtil.deadband(-OI.driverJoystick.getX()),
+				KUtil.deadband(-OI.driverJoystick.getY()) * 0.85, KUtil.deadband(OI.getDriveRot()) * 0.85);
 
+		
+//		SmartDashboard.putNumber("GYRO", drivetrain.getGyro());
 	}
 
 	@Override

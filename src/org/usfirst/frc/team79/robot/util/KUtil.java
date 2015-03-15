@@ -15,4 +15,16 @@ public class KUtil {
 	public static boolean withinTolerance(double input, double target, double tolerance){
 		return (Math.abs(target - input) <= tolerance);
 	}
+	
+	public static boolean outsideTolerance(double input, double target, double tolerance){
+		return (Math.abs(target - input) > tolerance);
+	}
+	
+	public static boolean outsideDeadband(double input){
+		return outsideTolerance(input, 0, DEADBAND_TOLERANCE);
+	}
+	
+	public static boolean withinDeadband(double input){
+		return !outsideDeadband(input);
+	}
 }
