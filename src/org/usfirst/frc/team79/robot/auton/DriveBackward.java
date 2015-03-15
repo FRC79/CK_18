@@ -7,6 +7,6 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class DriveBackward extends CommandGroup {
 	
 	public DriveBackward() {
-		addSequential(new MoveForTime(0.0, -0.5, 1.25)); // Drive backwards at half speed for one second
+		addSequential(new MoveForTime(0.0, -0.5, 1.25, false)); // Drive backwards at half speed for one second
 	}
 }

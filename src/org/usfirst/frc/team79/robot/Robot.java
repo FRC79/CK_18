@@ -3,6 +3,7 @@ package org.usfirst.frc.team79.robot;
 
 import org.usfirst.frc.team79.robot.auton.DoNothing;
 import org.usfirst.frc.team79.robot.auton.DriveBackward;
+import org.usfirst.frc.team79.robot.auton.GrabContainer;
 import org.usfirst.frc.team79.robot.auton.SingleTote;
 import org.usfirst.frc.team79.robot.teleop.OI;
 import org.usfirst.frc.team79.robot.teleop.TeleopCommandGroup;
@@ -38,6 +39,7 @@ public class Robot extends IterativeRobot {
     	autonSelector.addDefault("Drive backwards", new DriveBackward());
     	autonSelector.addObject("Do nothing", new DoNothing());
     	autonSelector.addObject("Single tote", new SingleTote());
+    	autonSelector.addObject("Grab Container", new GrabContainer());
     	
     	SmartDashboard.putData("Autonomous Mode", autonSelector);
     	

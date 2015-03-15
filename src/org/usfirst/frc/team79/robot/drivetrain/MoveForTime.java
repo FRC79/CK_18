@@ -6,23 +6,33 @@ public class MoveForTime extends CommandBase {
 
 	double duration = 0.0;
 	double powerX = 0.0, powerY = 0.0;
-	
-	public MoveForTime(double powerX, double powerY, double duration) {
+	boolean usesGyro = false;
+
+	public MoveForTime(double powerX, double powerY, double duration, boolean usesGyro) {
 		requires(drivetrain);
 		
 		this.duration = duration;
 		this.powerX = powerX;
 		this.powerY = -powerY;
+		this.usesGyro = usesGyro;
 	}
-	
+
 	@Override
 	protected void initialize() {
 		setTimeout(duration);
+		
+		if(usesGyro){
+			drivetrain.resetGyro();
+		}
 	}
 
 	@Override
 	protected void execute() {
-		drivetrain.move(powerX, powerY); // Drive forward
+		if(usesGyro){
+			drivetrain.moveStraightly(powerX, powerY);
+		} else {
+			drivetrain.move(powerX, powerY); // Drive forward
+		}
 	}
 
 	@Override

@@ -2,13 +2,13 @@ package org.usfirst.frc.team79.robot.containerarm;
 
 import org.usfirst.frc.team79.robot.CommandBase;
 
-public class LowerContainerArmForTime extends CommandBase {
+public class LiftContainerArmForTime extends CommandBase {
 
 	double duration = 0;
-	
-	public LowerContainerArmForTime(double duration) {
+
+	public LiftContainerArmForTime(double duration) {
 		requires(containerArm);
-	
+		
 		this.duration = duration;
 	}
 	
@@ -19,18 +19,16 @@ public class LowerContainerArmForTime extends CommandBase {
 
 	@Override
 	protected void execute() {
-		containerArm.setMotor(-ContainerArm.SLOW_POWER);
+		containerArm.setMotor(ContainerArm.LIFT_POWER);
 	}
 
 	@Override
 	protected boolean isFinished() {
-		// TODO Auto-generated method stub
 		return isTimedOut();
 	}
 
 	@Override
 	protected void end() {
-		// TODO Auto-generated method stub
 		containerArm.stop();
 	}
 
