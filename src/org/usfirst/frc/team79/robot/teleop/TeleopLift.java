@@ -12,7 +12,7 @@ public class TeleopLift extends CommandBase {
 	double SLOW_LOWER_POWER = -0.12;
 	double SLOW_LIFT_POWER = 0.5;
 	
-	double potSpotTop = 3100;
+	double potSpotTop = 3320;
 	double potSpotBottom = 2000;
 	double snapPower = -0.50;
 	
