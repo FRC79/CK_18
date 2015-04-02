@@ -38,8 +38,8 @@ public class Robot extends IterativeRobot {
     	CommandBase.init();
     	
     	autonSelector = new SendableChooser();
-    	autonSelector.addDefault("Drive backwards", new DriveBackward());
-    	autonSelector.addObject("Do nothing", new DoNothing());
+    	autonSelector.addObject("Drive backwards", new DriveBackward());
+    	autonSelector.addDefault("Do nothing", new DoNothing());
     	autonSelector.addObject("Single tote", new SingleTote());
     	autonSelector.addObject("Grab Container", new GrabContainer());
     	
