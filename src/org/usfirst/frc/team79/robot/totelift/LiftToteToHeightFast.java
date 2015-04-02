@@ -6,11 +6,6 @@ public class LiftToteToHeightFast extends CommandBase {
 
 	double potValue;
 
-	double LIFT_POWER = 1.0;
-	double LOWER_POWER = -0.25;
-	double SLOW_LOWER_POWER = -0.12;
-	double SLOW_LIFT_POWER = 0.5;
-	
 	public LiftToteToHeightFast(double potValue) {
 		requires(toteLift);
 	
@@ -24,12 +19,12 @@ public class LiftToteToHeightFast extends CommandBase {
 
 	@Override
 	protected void execute() {
-		toteLift.setMotor(LIFT_POWER);
+		toteLift.setMotor(ToteLift.LIFT_POWER);
 	}
 
 	@Override
 	protected boolean isFinished() {
-		return (toteLift.getPot() > potValue);
+		return (toteLift.getPot() >= potValue);
 	}
 
 	@Override

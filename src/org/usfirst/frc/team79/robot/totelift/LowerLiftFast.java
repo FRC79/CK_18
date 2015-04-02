@@ -2,7 +2,7 @@ package org.usfirst.frc.team79.robot.totelift;
 
 import org.usfirst.frc.team79.robot.CommandBase;
 
-public class SnapToteInPlace extends CommandBase {
+public class LowerLiftFast extends CommandBase {
 
 	double potStop = 2000;
 	
@@ -13,7 +13,7 @@ public class SnapToteInPlace extends CommandBase {
 	
 	double snapPower = -0.5;
 	
-	public SnapToteInPlace() {
+	public LowerLiftFast() {
 		requires(toteLift);
 	}
 	
@@ -33,7 +33,7 @@ public class SnapToteInPlace extends CommandBase {
 
 	@Override
 	protected boolean isFinished() {
-		return toteLift.atBottom();
+		return (toteLift.getPot() <= ToteLift.BOTTOM_POT_STOP); // At bottom
 	}
 
 	@Override
