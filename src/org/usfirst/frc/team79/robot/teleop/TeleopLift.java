@@ -12,7 +12,8 @@ public class TeleopLift extends CommandBase {
 	double SLOW_LOWER_POWER = -0.12;
 	double SLOW_LIFT_POWER = 0.5;
 	
-	double potStop = 2000;
+	double potSpotTop = 3100;
+	double potSpotBottom = 2000;
 	double snapPower = -0.50;
 	
 	double lastPot = 0;
@@ -36,13 +37,13 @@ public class TeleopLift extends CommandBase {
 				&& KUtil.deadband(OI.manipGamepad.getRawAxis(3)) < 0) {
 			// If we're at the bottom and we want to go down, stop.
 			toteLift.setMotor(0);
-		} else if (toteLift.atTop()
+		} else if ((toteLift.atTop() || toteLift.getPot() >= potSpotTop)
 				&& KUtil.deadband(OI.manipGamepad.getRawAxis(3)) > 0) {
 			// If we're at the top and want to go up, stop.
 			toteLift.setMotor(0);
 		} else {
 			if(OI.manipGamepad.getRawButton(2)){
-				if(toteLift.getPot() <= potStop){
+				if(toteLift.getPot() <= potSpotBottom){
 					if(toteLift.atBottom()){
 						toteLift.setMotor(0);
 					} else {
@@ -52,7 +53,7 @@ public class TeleopLift extends CommandBase {
 					toteLift.setMotor(snapPower);
 				}
 			} else if(OI.manipGamepad.getRawButton(3)) {
-				if(toteLift.atTop()){
+				if(toteLift.atTop() || toteLift.getPot() >= potSpotTop){
 					toteLift.setMotor(0);
 				} else {
 					toteLift.setMotor(LIFT_POWER);
@@ -66,7 +67,7 @@ public class TeleopLift extends CommandBase {
 					
 					if(directionCoeff < 0){
 						
-						if(toteLift.getPot() > potStop){
+						if(toteLift.getPot() > potSpotBottom){
 							// Down
 							toteLift.setMotor(LOWER_POWER);
 						} else {

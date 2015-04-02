@@ -23,8 +23,8 @@ public class TeleopDrive extends CommandBase {
 	protected void execute() {
 
 		// Maps 3-axis joystick to mecanum drive (X, Y, Rotation)
-		drivetrain.move(KUtil.deadband(-OI.driverJoystick.getX()),
-				KUtil.deadband(-OI.driverJoystick.getY()) * 0.85, KUtil.deadband(OI.getDriveRot()) * 0.85);
+		drivetrain.move(KUtil.deadband(OI.driverJoystick.getX()),
+				KUtil.deadband(OI.driverJoystick.getY()) * 0.85, KUtil.deadband(OI.getDriveRot()) * 0.85);
 
 		
 //		SmartDashboard.putNumber("GYRO", drivetrain.getGyro());
