@@ -31,7 +31,7 @@ public class TeleopLift extends CommandBase {
 			toteLift.setMotor(0);
 		} else {
 			if(OI.manipGamepad.getRawButton(2)){
-				if(toteLift.getPot() <= ToteLift.BOTTOM_POT_STOP){
+				if(toteLift.getPot() <= ToteLift.BOTTOM_POT_SLOWER_STOP){
 					toteLift.setMotor(ToteLift.SLOW_LOWER_POWER);
 				} else {
 					toteLift.setMotor(ToteLift.SNAP_DOWN_POWER);
@@ -51,7 +51,7 @@ public class TeleopLift extends CommandBase {
 					
 					if(directionCoeff < 0){
 						
-						if(toteLift.getPot() > ToteLift.BOTTOM_POT_STOP){
+						if(toteLift.getPot() > ToteLift.BOTTOM_POT_SLOWER_STOP){
 							// Down
 							toteLift.setMotor(ToteLift.LOWER_POWER);
 						} else {

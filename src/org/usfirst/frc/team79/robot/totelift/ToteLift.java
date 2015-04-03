@@ -23,7 +23,8 @@ public class ToteLift extends Subsystem {
 	public static double SNAP_DOWN_POWER = -0.50;
 	
 	public static double TOP_POT_STOP = 3320;
-	public static double BOTTOM_POT_STOP = 2000;
+	public static double BOTTOM_POT_SLOWER_STOP = 2000;
+	public static double BOTTOM_POT_STOP = 1900;
 	
 	public ToteLift(){
 		// Init components
