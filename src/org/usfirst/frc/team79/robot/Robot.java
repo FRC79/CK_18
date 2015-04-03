@@ -38,8 +38,8 @@ public class Robot extends IterativeRobot {
     	
     	autonSelector = new SendableChooser();
     	autonSelector.addObject("Do nothing", new DoNothing());
-    	autonSelector.addDefault("Landfill Totes", new LandfillTotes());
-//    	autonSelector.addObject("Grab Container", new GrabContainer());
+    	autonSelector.addObject("Landfill Totes", new LandfillTotes());
+    	autonSelector.addDefault("Grab Container", new GrabContainer());
     	
     	SmartDashboard.putData("Autonomous Mode", autonSelector);
     	

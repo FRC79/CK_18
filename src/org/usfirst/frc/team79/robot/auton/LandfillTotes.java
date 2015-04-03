@@ -12,8 +12,7 @@ public class LandfillTotes extends CommandGroup {
 		// Lower to the level of the totes
 		addSequential(new LowerLiftFastToBottom()); 			// Lower to bottom
 		addSequential(new WaitCommand(0.5));					// Wait to settle
-		addSequential(new MoveForTime(0, 0.25, 0.200, false));	// Move into the totes
-		addSequential(new WaitCommand(1.0)); 					// Wait to settle down
-		addSequential(new LiftToteToHeightFast(2160));  		// Should lift to certain height
+		addParallel(new MoveForTime(0, 0.15, 2.5, false));	// Move into the totes
+		addParallel(new WaitThenLiftTotes());  		// Should lift to certain height
 	}
 }

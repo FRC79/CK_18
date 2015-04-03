@@ -2,16 +2,19 @@ package org.usfirst.frc.team79.robot.gripper;
 
 import org.usfirst.frc.team79.robot.CommandBase;
 
-public class CloseGripper extends CommandBase {
+public class CloseGripperForTime extends CommandBase {
 
-	public CloseGripper() {
+	double duration;
+	
+	public CloseGripperForTime(double time) {
 		requires(gripper);
+		
+		this.duration = time;
 	}
 	
 	@Override
 	protected void initialize() {
-		// TODO Auto-generated method stub
-
+		setTimeout(duration);
 	}
 
 	@Override
@@ -21,7 +24,7 @@ public class CloseGripper extends CommandBase {
 
 	@Override
 	protected boolean isFinished() {
-		return gripper.isClosed();
+		return (gripper.isClosed() || isTimedOut());
 	}
 
 	@Override
