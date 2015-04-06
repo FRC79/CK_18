@@ -16,6 +16,16 @@ public class ToteLift extends Subsystem {
 	LimitSwitch bottomSwitch, topSwitch;
 	AnalogPotentiometer liftPot;
 
+	public static double LIFT_POWER = 1.0;
+	public static double LOWER_POWER = -0.25;
+	public static double SLOW_LOWER_POWER = -0.12;
+	public static double SLOW_LIFT_POWER = 0.5;
+	public static double SNAP_DOWN_POWER = -0.50;
+	
+	public static double TOP_POT_STOP = 3440;
+	public static double BOTTOM_POT_SLOWER_STOP = 2000;
+	public static double BOTTOM_POT_STOP = 1900;
+	
 	public ToteLift(){
 		// Init components
 		liftMotor = new VictorSP(RobotMap.TOTE_LIFT_MOTOR_PORT);
@@ -32,14 +42,6 @@ public class ToteLift extends Subsystem {
 	
 	public double getPot(){
 		return liftPot.get();
-	}
-	
-	public boolean atBottom(){
-		return bottomSwitch.get();
-	}
-	
-	public boolean atTop(){
-		return topSwitch.get();
 	}
 	
     public void initDefaultCommand() {

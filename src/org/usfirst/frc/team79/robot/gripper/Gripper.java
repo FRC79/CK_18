@@ -12,8 +12,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Gripper extends Subsystem {
 
-	public static double OPEN_POWER = 1.0;
-	public static double CLOSE_POWER = -1.0;
+	public static double OPEN_POWER = 0.50;
+	public static double CLOSE_POWER = -0.50;
 	
 	private VictorSP gripperMotor;
 	private LimitSwitch openSwitch, closedSwitch;
